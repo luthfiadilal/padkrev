@@ -1,26 +1,32 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import Header from '../Layouts/Seller/Header/Header';
+import Sidebar from '../Layouts/Seller/Sidebar/Sidebar';
 
 export default function Dashboard() {
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard
-                </h2>
-            }
-        >
-            <Head title="Dashboard" />
+        <>
+            <div className="flex min-h-screen w-full dark:bg-darkgray">
+                <div className="page-wrapper flex w-full">
+                    {/* Header/sidebar */}
+                    <Sidebar />
+                    <div className="page-wrapper-sub flex w-full flex-col dark:bg-darkgray">
+                        {/* Top Header  */}
+                        <Header />
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">
-                            You're logged in!
+                        <div
+                            className={`h-full rounded-bb bg-lightgray dark:bg-dark`}
+                        >
+                            {/* Body Content  */}
+                            <div className={`w-full`}>
+                                {/* <ScrollToTop>
+                                    <div className="container py-30">
+                                        <Outlet />
+                                    </div>
+                                </ScrollToTop> */}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </>
     );
 }

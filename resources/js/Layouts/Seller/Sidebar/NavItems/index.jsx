@@ -1,13 +1,8 @@
 import { Icon } from '@iconify/react';
 import { Sidebar } from 'flowbite-react';
-import React from 'react';
-import { Link, useLocation } from 'react-router';
-import { ChildItem } from '../Sidebaritems';
+import { Link, useLocation } from 'react-router-dom';
 
-interface NavItemsProps {
-    item: ChildItem;
-}
-const NavItems: React.FC<NavItemsProps> = ({ item }) => {
+const NavItems = ({ item }) => {
     const location = useLocation();
     const pathname = location.pathname;
 
@@ -20,7 +15,7 @@ const NavItems: React.FC<NavItemsProps> = ({ item }) => {
                     item.url == pathname
                         ? 'active rounded-xl bg-primary text-white shadow-btnshdw hover:bg-primary hover:text-white dark:hover:text-white'
                         : 'group/link bg-transparent text-link'
-                } `}
+                }`}
             >
                 <span className="align-center flex items-center gap-3">
                     {item.icon ? (
@@ -35,7 +30,7 @@ const NavItems: React.FC<NavItemsProps> = ({ item }) => {
                                 item.url == pathname
                                     ? 'mx-1.5 h-[6px] w-[6px] rounded-full !bg-primary group-hover/link:bg-primary dark:bg-white'
                                     : 'mx-1.5 h-[6px] w-[6px] rounded-full bg-black/40 group-hover/link:bg-primary dark:bg-white'
-                            } `}
+                            }`}
                         ></span>
                     )}
                     <span className={`max-w-36 overflow-hidden`}>

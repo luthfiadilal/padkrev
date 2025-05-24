@@ -1,3 +1,4 @@
+import { router } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
@@ -26,6 +27,9 @@ export default function Navbar() {
         exit: { opacity: 0 },
     };
 
+    const handleLogin = () => {
+        router.get('/dashboard');
+    };
     return (
         <nav className="sticky top-0 z-50 w-full bg-white px-6 py-4">
             <div className="flex items-center justify-between">
@@ -70,7 +74,10 @@ export default function Navbar() {
 
                     {/* Login/Register Kanan */}
                     <div className="flex items-center gap-4">
-                        <h5 className="cursor-pointer text-18 font-manropeSemiBold text-primary">
+                        <h5
+                            onClick={handleLogin}
+                            className="cursor-pointer text-18 font-manropeSemiBold text-primary"
+                        >
                             Login
                         </h5>
                         <div className="flex cursor-pointer items-center gap-2">

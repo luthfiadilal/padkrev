@@ -1,9 +1,8 @@
 import { Sidebar } from 'flowbite-react';
 import React from 'react';
 import SimpleBar from 'simplebar-react';
-
 import NavItems from './NavItems';
-import SidebarContent from './Sidebaritems';
+import SidebarContent from './SidebarItems';
 
 const SidebarLayout = () => {
     return (
@@ -14,7 +13,7 @@ const SidebarLayout = () => {
                     aria-label="Sidebar with multi-level dropdown example"
                 >
                     <div className="sidebarlogo flex items-center px-6 py-4">
-                        <FullLogo />
+                        {/* <FullLogo /> */}
                     </div>
                     <SimpleBar className="h-[calc(100vh_-_230px)]">
                         <Sidebar.Items className="mt-2 px-5">
