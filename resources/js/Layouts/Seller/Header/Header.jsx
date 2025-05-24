@@ -1,13 +1,14 @@
 import { Icon } from '@iconify/react';
-import { Button, Drawer, Navbar } from 'flowbite-react';
+import { Drawer, Navbar } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router';
 import MobileSidebar from '../Sidebar/MobileSidebar';
 import Profile from './Profile';
 import Notification from './notification';
 
 const Header = () => {
     const [isSticky, setIsSticky] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const handleClose = () => setIsOpen(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -25,9 +26,28 @@ const Header = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 1280) {
+                // breakpoint xl
+                setIsOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.classList.add('drawer-open');
+        } else {
+            document.body.classList.remove('drawer-open');
+        }
+    }, [isOpen]);
+
     // mobile-sidebar
-    const [isOpen, setIsOpen] = useState(false);
-    const handleClose = () => setIsOpen(false);
+
     return (
         <>
             <header
@@ -43,44 +63,46 @@ const Header = () => {
 
                     <div className="flex w-full items-center justify-between gap-3">
                         <div className="flex items-center gap-2">
-                            <span
+                            <button
                                 onClick={() => setIsOpen(true)}
-                                className="text-opacity-65 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-black hover:bg-lightprimary hover:text-primary dark:text-white xl:hidden"
+                                className="z-[10000] flex h-10 w-10 items-center justify-center rounded-full text-black transition-colors hover:bg-lightprimary hover:text-primary dark:text-white xl:hidden"
+                                aria-label="Buka menu"
+                                aria-expanded={isOpen}
+                                aria-controls="mobile-sidebar"
                             >
                                 <Icon
                                     icon="solar:hamburger-menu-line-duotone"
                                     height={21}
                                 />
-                            </span>
+                            </button>
                             <Notification />
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <Button
-                                as={Link}
-                                to="#"
-                                size={'sm'}
-                                color={'primary'}
-                                className="rounded-md px-3 py-1"
-                            >
-                                Download Free
-                            </Button>
                             <Profile />
                         </div>
                     </div>
                 </Navbar>
             </header>
 
-            {/* Mobile Sidebar */}
-            <Drawer
-                open={isOpen}
-                onClose={handleClose}
-                className="w-130 z-[100]"
-            >
-                <Drawer.Items>
-                    <MobileSidebar />
-                </Drawer.Items>
-            </Drawer>
+            {isOpen && (
+                <>
+                    <div
+                        className="fixed inset-0 z-[70] bg-gray-900/50 dark:bg-gray-900/80"
+                        onClick={handleClose}
+                    />
+                    <Drawer
+                        open={isOpen}
+                        onClose={handleClose}
+                        className="!fixed !z-[80] !w-64 p-0" // Gunakan ! untuk override styles Flowbite
+                        position="left"
+                    >
+                        <Drawer.Items className="p-0">
+                            <MobileSidebar />
+                        </Drawer.Items>
+                    </Drawer>
+                </>
+            )}
         </>
     );
 };

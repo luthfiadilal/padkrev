@@ -1,96 +1,132 @@
-.minisidebar-icon {
+/* Base Sidebar Styles .menu-sidebar {
     position: fixed;
-    left: 0;
-    height: 100%;
     top: 0;
-    background-color: #f4f7fb;
-    width: 80px;
+    left: 0;
+    width: 256px;
+    height: 100vh;
+    background: var(--bs-white);
+    display: flex;
+    flex-direction: column;
+    transition: left 0.4s ease-in-out;
+    z-index: 40;
 }
 
-.menu-sidebar {
-    width: 256px;
-    background: var(--bs-white);
-    top: 0;
-    left: 0px;
-    transition: left 0.4s ease-in-out;
+.brand-logo {
+    height: 72px;
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: inherit;
+}
+
+.sidebar-content {
+    flex: 1;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
 
+.sidebar-nav {
+    padding: 0.5rem 0;
+}
+
 .sidebar-nav .caption {
-    padding-top: 20px;
-    margin-top: 20px;
+    padding-top: 1rem;
+    margin-top: 1rem;
     border-top: 1px solid var(--color-border);
 }
 
 .sidebar-nav .caption:first-child {
     padding-top: 0;
-    margin-top: 0px;
+    margin-top: 0;
     border-top: 0;
 }
 
 .sidebar-dropdown li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
     opacity: 0.9;
-    padding: 8px 16px;
-    box-shadow: none;
-}
-.sidebar-dropdown li a.active {
-    opacity: 1;
-    color: var(--color-primary);
-}
-
-.sidebar-dropdown li a {
+    transition: all 0.15s ease;
+    text-decoration: none;
     background-color: transparent;
 }
 
 .sidebar-dropdown li a:hover {
-    background-color: transparent;
     opacity: 1;
+    color: var(--text-primary);
 }
 
-.sidebar-dropdown li button:hover {
-    background-color: transparent;
+.sidebar-dropdown li a.active {
+    opacity: 1;
+    color: var(--color-primary);
+    font-weight: 500;
 }
 
 .sidebar-dropdown li .iconify--fad {
-    height: 9px;
-    width: 9px;
-    margin: 0 4px;
-}
-.brand-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: inherit;
-}
-.nav-link {
-    display: block;
-    font-size: 14px;
-    color: #98a4ae;
-    text-decoration: none;
-    background: 0 0;
-    border: 0;
-    transition:
-        color 0.15s ease-in-out,
-        background-color 0.15s ease-in-out,
-        border-color 0.15s ease-in-out;
+    height: 0.5625rem;
+    width: 0.5625rem;
+    margin: 0 0.25rem;
 }
 
-.sidebar-scrollable {
-    flex-grow: 1;
-    overflow-y: auto;
-    height: calc(100vh - 72px);
+.minisidebar-icon {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 80px;
+    background-color: #f4f7fb;
+    z-index: 30;
 }
 
-/* Existing styles tetap dipertahankan */
-.sidebar-nav .caption {
-    padding-top: 20px;
-    margin-top: 20px;
-    border-top: 1px solid var(--color-border);
+.drawer-overlay {
+    z-index: 70;
 }
 
-.sidebar-nav .caption:first-child {
-    padding-top: 0;
-    margin-top: 0px;
-    border-top: 0;
+.drawer-content {
+    z-index: 80;
 }
+
+.xl\\:hidden {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .menu-sidebar {
+        left: -256px;
+        pointer-events: none;
+    }
+
+    .menu-sidebar.open {
+        left: 0;
+        pointer-events: auto;
+    }
+
+    .xl\\:hidden {
+        display: flex;
+    }
+}
+
+.dark .menu-sidebar {
+    background: var(--dark-bg);
+}
+
+.dark .sidebar-dropdown li a {
+    color: var(--dark-text-secondary);
+}
+
+.dark .sidebar-dropdown li a:hover {
+    color: var(--dark-text-primary);
+}
+
+button {
+    cursor: pointer;
+    user-select: none;
+}
+
+body.drawer-open {
+    overflow: hidden;
+} */

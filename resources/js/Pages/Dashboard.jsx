@@ -5,9 +5,10 @@ export default function Dashboard() {
     return (
         <>
             <div className="flex min-h-screen w-full dark:bg-darkgray">
+                <SidebarLayout />
                 <div className="page-wrapper flex w-full">
                     {/* Header/sidebar */}
-                    <SidebarLayout />
+
                     <div className="page-wrapper-sub flex w-full flex-col dark:bg-darkgray">
                         {/* Top Header  */}
                         <Header />
