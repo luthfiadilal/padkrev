@@ -9,7 +9,7 @@ Route::get('/', function () {
     return Inertia::render('LandingPage/Home');
 });
 
-Route::get('/dashboard', function () {
+Route::get('/dashboard-seller', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 

@@ -15,14 +15,14 @@ export default function Hero() {
                 initial={{ opacity: 0, x: -80 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 0.3, duration: 1.6, ease: 'easeOut' }}
-                className="flex-2 flex flex-col items-center justify-between gap-3 text-center md:flex-col md:justify-between md:text-left"
+                className="flex-2 flex flex-col items-center justify-between gap-7 text-center md:flex-col md:justify-between md:text-left"
             >
-                <h2 className="w-[70%] text-24 font-manropeExtraBold text-primary md:w-full md:text-50">
+                <h2 className="w-[70%] text-26 font-manropeExtraBold leading-[1.2] text-primary md:w-full md:text-50 md:leading-[1.1]">
                     Bangkitkan{' '}
                     <span className="text-secondary">Kreativitas Lokal</span>,
                     Mulai dari Sini.
                 </h2>
-                <p className="text-14 -mt-1 w-[70%] font-manropeSemiBold text-textgray md:w-full md:text-24">
+                <p className="text-14 -mt-1 w-[70%] font-manropeSemiBold leading-[1.2] text-textgray md:w-full md:text-24 md:leading-[1.1]">
                     Temukan produk dan jasa terbaik dari UMKM Padalarang
                 </p>
                 <div className="flex w-full justify-center gap-2 md:justify-start md:gap-3">
