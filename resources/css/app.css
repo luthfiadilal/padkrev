@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import './layouts/container.css';
+@import './layouts/sidebar.css';
+@import './layouts/header.css';
+@import './theme/default-colors.css';
+@import './override/reboot.css';
 
 @tailwind base;
 @tailwind components;
