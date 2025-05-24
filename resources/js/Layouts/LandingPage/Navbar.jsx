@@ -154,7 +154,10 @@ export default function Navbar() {
                                     About
                                 </a>
                                 <div className="border-t border-gray-200 pt-4">
-                                    <h5 className="mb-2 cursor-pointer text-18 font-manropeSemiBold text-primary">
+                                    <h5
+                                        onClick={handleLogin}
+                                        className="mb-2 cursor-pointer text-18 font-manropeSemiBold text-primary"
+                                    >
                                         Login
                                     </h5>
                                     <div className="flex cursor-pointer items-center gap-2">

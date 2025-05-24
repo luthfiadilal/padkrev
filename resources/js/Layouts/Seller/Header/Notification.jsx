@@ -42,7 +42,7 @@ const Notification = () => {
                         aria-label="Notifications"
                     >
                         <Icon icon="solar:bell-linear" height={20} />
-                        <Badge className="absolute end-2 top-1 h-2 w-2 rounded-full bg-primary p-0" />
+                        <Badge className="absolute end-2 left-10 top-1 h-2 w-2 rounded-full bg-primary p-0" />
                     </span>
                 )}
             >

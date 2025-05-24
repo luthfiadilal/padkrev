@@ -1,3 +1,4 @@
+import FullLogo from '@/Layouts/shared/logo/Fulllogo';
 import { Sidebar } from 'flowbite-react';
 import React from 'react';
 import SimpleBar from 'simplebar-react';
@@ -13,7 +14,7 @@ const MobileSidebar = () => {
                     aria-label="Sidebar with multi-level dropdown example"
                 >
                     <div className="sidebarlogo flex items-center px-5 py-4 pb-7">
-                        {/* <FullLogo /> */}
+                        <FullLogo />
                     </div>
                     <SimpleBar className="h-[calc(100vh_-_242px)]">
                         <Sidebar.Items className="mt-2 px-5">

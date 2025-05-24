@@ -1,5 +1,5 @@
+import SidebarLayout from '@/Layouts/Seller/Sidebar/Sidebar';
 import Header from '../Layouts/Seller/Header/Header';
-import Sidebar from '../Layouts/Seller/Sidebar/Sidebar';
 
 export default function Dashboard() {
     return (
@@ -7,7 +7,7 @@ export default function Dashboard() {
             <div className="flex min-h-screen w-full dark:bg-darkgray">
                 <div className="page-wrapper flex w-full">
                     {/* Header/sidebar */}
-                    <Sidebar />
+                    <SidebarLayout />
                     <div className="page-wrapper-sub flex w-full flex-col dark:bg-darkgray">
                         {/* Top Header  */}
                         <Header />

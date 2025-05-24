@@ -37,7 +37,7 @@ const Header = () => {
             >
                 <Navbar
                     fluid
-                    className={`rounded-none bg-transparent px-4 py-4 sm:px-30 dark:bg-transparent`}
+                    className={`rounded-none bg-transparent px-4 py-4 dark:bg-transparent sm:px-30`}
                 >
                     {/* Mobile Toggle Icon */}
 
@@ -45,7 +45,7 @@ const Header = () => {
                         <div className="flex items-center gap-2">
                             <span
                                 onClick={() => setIsOpen(true)}
-                                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-black text-opacity-65 hover:bg-lightprimary hover:text-primary xl:hidden dark:text-white"
+                                className="text-opacity-65 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-black hover:bg-lightprimary hover:text-primary dark:text-white xl:hidden"
                             >
                                 <Icon
                                     icon="solar:hamburger-menu-line-duotone"
@@ -72,7 +72,11 @@ const Header = () => {
             </header>
 
             {/* Mobile Sidebar */}
-            <Drawer open={isOpen} onClose={handleClose} className="w-130">
+            <Drawer
+                open={isOpen}
+                onClose={handleClose}
+                className="w-130 z-[100]"
+            >
                 <Drawer.Items>
                     <MobileSidebar />
                 </Drawer.Items>
