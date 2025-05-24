@@ -9,9 +9,13 @@ Route::get('/', function () {
     return Inertia::render('LandingPage/Home');
 });
 
-Route::get('/dashboard-seller', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+Route::middleware(['auth', 'role:seller'])->group(function() {
+    Route::get('/dashboard-seller', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard-seller');
+});
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

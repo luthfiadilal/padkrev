@@ -4,7 +4,7 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
                 {/* CUSTOMER SERVICE */}
                 <div className="flex flex-col gap-2">
-                    <h4 className="text-16 font-manropeBold text-black md:text-20">
+                    <h4 className="text-16 font-manropeBold text-secondary md:text-20">
                         CUSTOMER SERVICE
                     </h4>
                     <a
@@ -35,7 +35,7 @@ export default function Footer() {
 
                 {/* PADKREV */}
                 <div className="flex flex-col gap-2">
-                    <h4 className="text-16 font-manropeBold text-black md:text-20">
+                    <h4 className="text-16 font-manropeBold text-secondary md:text-20">
                         PADKREV
                     </h4>
                     <a
@@ -54,7 +54,7 @@ export default function Footer() {
 
                 {/* HELP */}
                 <div className="flex flex-col gap-2">
-                    <h4 className="text-16 font-manropeBold text-black md:text-20">
+                    <h4 className="text-16 font-manropeBold text-secondary md:text-20">
                         HELP
                     </h4>
                     <a

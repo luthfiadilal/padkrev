@@ -28,7 +28,7 @@ export default function Navbar() {
     };
 
     const handleLogin = () => {
-        router.get('/dashboard');
+        router.get('/dashboard-seller');
     };
     return (
         <nav className="sticky top-0 z-50 w-full bg-white px-6 py-4">

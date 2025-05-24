@@ -102,6 +102,23 @@ export default function Register() {
                     />
                 </div>
 
+                <div className="mt-4">
+                    <InputLabel htmlFor="role" value="Role" />
+                    <select
+                        id="role"
+                        name="role"
+                        value={data.role}
+                        onChange={(e) => setData('role', e.target.value)}
+                        className="text-14 mt-1 block w-full rounded-md border-gray-300 font-manropeMedium text-textgray shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        required
+                    >
+                        <option value="buyer">Buyer</option>
+                        <option value="seller">Seller</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <InputError message={errors.role} className="mt-2" />
+                </div>
+
                 <div className="mt-4 flex items-center justify-end">
                     <Link
                         href={route('login')}

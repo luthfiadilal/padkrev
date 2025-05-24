@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended($this->redirectTo());
     }
 
     /**
@@ -48,5 +48,16 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+    protected function redirectTo(): string
+    {
+        $user = Auth::user();
+
+        return match ($user->role) {
+            'admin' => route('dashboard-admin'),
+            'seller' => route('dashboard-seller'),
+            'buyer' => route('marketplace'),
+            default => route('dashboard'), // Fallback untuk role tidak terdaftar
+        };
     }
 }

@@ -26,7 +26,7 @@ export default function Login({ status, canResetPassword }) {
             <Head title="Log in" />
 
             {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
+                <div className="font-medium mb-4 text-sm text-green-600">
                     {status}
                 </div>
             )}
@@ -84,7 +84,7 @@ export default function Login({ status, canResetPassword }) {
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            className="rounded-md text-sm text-link underline hover:text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         >
                             Forgot your password?
                         </Link>
@@ -95,6 +95,18 @@ export default function Login({ status, canResetPassword }) {
                     </PrimaryButton>
                 </div>
             </form>
+
+            <div className="mt-4 text-center">
+                <span className="text-sm text-gray-600">
+                    Don't have an account?{' '}
+                    <Link
+                        href={route('register')}
+                        className="font-medium text-link hover:text-primary hover:underline"
+                    >
+                        Register here
+                    </Link>
+                </span>
+            </div>
         </GuestLayout>
     );
 }
