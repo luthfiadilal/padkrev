@@ -1,4 +1,6 @@
+import 'simplebar-react/dist/simplebar.min.css';
 import '../css/app.css';
+import '../css/layouts/scrollbar.css';
 import '../css/theme/default-colors.css';
 import './bootstrap';
 

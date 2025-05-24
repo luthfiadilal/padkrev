@@ -1,0 +1,15 @@
+/* file: src/index.css atau tailwind.css */
+.simplebar-scrollbar::before {
+    background-color: #555555; /* abu-abu gelap */
+    opacity: 0.7;
+    border-radius: 9999px;
+}
+
+.simplebar-track.simplebar-vertical {
+    width: 12px;
+    right: -5px;
+}
+
+.simplebar-track.simplebar-horizontal {
+    height: 12px;
+}

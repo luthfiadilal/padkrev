@@ -15,7 +15,7 @@ const MobileSidebar = () => {
                     <div className="sidebarlogo flex items-center px-5 py-4 pb-7">
                         {/* <FullLogo /> */}
                     </div>
-                    <SimpleBar className="h-[calc(100vh_-_242px)]">
+                    <SimpleBar className="custom-scroll h-[calc(100vh_-_242px)]">
                         <Sidebar.Items className="mt-2 px-5">
                             <Sidebar.ItemGroup className="sidebar-nav hide-menu">
                                 {SidebarContent &&

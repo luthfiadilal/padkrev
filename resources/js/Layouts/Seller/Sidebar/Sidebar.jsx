@@ -1,6 +1,8 @@
+import FullLogo from '@/Layouts/shared/logo/FullLogo';
 import { Sidebar } from 'flowbite-react';
+import React from 'react';
 import SimpleBar from 'simplebar-react';
-import FullLogo from '../../shared/logo/FullLogo';
+import 'simplebar-react/dist/simplebar.min.css';
 import NavItems from './NavItems';
 import SidebarContent from './SidebarItems';
 
@@ -8,38 +10,36 @@ const SidebarLayout = () => {
     return (
         <div className="hidden xl:block">
             <Sidebar
-                className="menu-sidebar fixed w-64 bg-white dark:bg-darkgray"
-                aria-label="Sidebar"
+                className="menu-sidebar fixed bg-white pt-0 transition-all dark:bg-darkgray"
+                aria-label="Sidebar with multi-level dropdown example"
             >
-                <div className="flex h-[72px] flex-shrink-0 items-center justify-center border-b border-gray-200 px-4 py-4 dark:border-gray-700">
+                <div className="sidebarlogo flex items-center px-5">
                     <FullLogo />
                 </div>
-                <SimpleBar className="h-[calc(100vh-72px)]">
-                    <Sidebar.Items className="px-2 py-1">
-                        <Sidebar.ItemGroup className="space-y-0.5">
-                            {SidebarContent?.map((item, index) => (
-                                <div
-                                    key={`group-${index}`}
-                                    className="mt-1 first:mt-0"
-                                >
-                                    {item.heading && (
-                                        <h5 className="font-medium px-3 py-1 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                            {item.heading}
-                                        </h5>
-                                    )}
-                                    <div className="space-y-0.5">
-                                        {item.children?.map(
-                                            (child, childIndex) => (
-                                                <NavItems
-                                                    key={`item-${child.id || childIndex}`}
-                                                    item={child}
-                                                    compact
-                                                />
-                                            ),
-                                        )}
+                <SimpleBar className="custom-scroll h-[calc(100vh_-_242px)]">
+                    <Sidebar.Items className="mt-2 px-5">
+                        <Sidebar.ItemGroup className="sidebar-nav hide-menu">
+                            {SidebarContent &&
+                                SidebarContent?.map((item, index) => (
+                                    <div className="caption" key={item.heading}>
+                                        <React.Fragment key={index}>
+                                            <h5 className="caption font-semibold pb-2 text-xs uppercase leading-6 tracking-widest text-link dark:text-white/70">
+                                                {item.heading}
+                                            </h5>
+                                            {item.children?.map(
+                                                (child, index) => (
+                                                    <React.Fragment
+                                                        key={child.id && index}
+                                                    >
+                                                        <NavItems
+                                                            item={child}
+                                                        />
+                                                    </React.Fragment>
+                                                ),
+                                            )}
+                                        </React.Fragment>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
                         </Sidebar.ItemGroup>
                     </Sidebar.Items>
                 </SimpleBar>
