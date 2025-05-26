@@ -1,9 +1,9 @@
 import ScrollToTop from '@/Components/shared/ScrollToTop';
 import Header from '../../Layouts/Seller/Header/Header';
 import SidebarLayout from '../../Layouts/Seller/Sidebar/Sidebar';
-import SellerProfile from '../Profile/SellerProfile';
+import Edit from '../Profile/Edit';
 
-export default function ProfilePage({ roleData }) {
+export default function EditPage({ user, roleData }) {
     return (
         <>
             <div className="flex min-h-screen w-full dark:bg-darkgray">
@@ -22,7 +22,7 @@ export default function ProfilePage({ roleData }) {
                             <div className={`w-full`}>
                                 <ScrollToTop>
                                     <div className="container py-30">
-                                        <SellerProfile roleData={roleData} />
+                                        <Edit user={user} roleData={roleData} />
                                     </div>
                                 </ScrollToTop>
                             </div>

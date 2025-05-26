@@ -16,11 +16,26 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
+    public function index()  {
+        $user = Auth::user()->load(['penjual', 'pembeli', 'admin']);
+
+        return Inertia::render('Seller/ProfilePage', [
+            'user' => $user,
+            'roleData' => match ($user->role) {
+                'seller' => $user->penjual,
+                'buyer' => $user->pembeli,
+                'admin' => $user->admin,
+                default => null,
+            }
+        ]);
+
+    }
+
     public function edit()
     {
         $user = Auth::user()->load(['penjual', 'pembeli', 'admin']);
 
-        return Inertia::render('Seller/ProfilePage', [
+        return Inertia::render('Seller/EditPage', [
             'user' => $user,
             'roleData' => match ($user->role) {
                 'seller' => $user->penjual,

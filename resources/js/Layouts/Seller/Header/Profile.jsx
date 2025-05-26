@@ -5,6 +5,9 @@ import { Button, Dropdown } from 'flowbite-react';
 
 const Profile = () => {
     const handletoProfile = () => {
+        router.get(route('profile.index'));
+    };
+    const handletoEdit = () => {
         router.get(route('profile.edit'));
     };
     return (
@@ -33,8 +36,7 @@ const Profile = () => {
                     My Profile
                 </Dropdown.Item>
                 <Dropdown.Item
-                    as={Link}
-                    to="#"
+                    onClick={handletoEdit}
                     className="bg-hover group/link flex w-full items-center gap-3 px-3 py-3 text-dark"
                 >
                     <Icon icon="solar:letter-linear" height={20} />

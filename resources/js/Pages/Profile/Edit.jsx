@@ -1,7 +1,7 @@
 import { useForm } from '@inertiajs/react';
 import { Button, Card, FileInput, Label, TextInput } from 'flowbite-react';
 
-export default function EditPage({ user, roleData }) {
+export default function Edit({ user, roleData }) {
     const { data, setData, post, processing, errors } = useForm({
         name: user.name || '',
         email: user.email || '',
