@@ -11,9 +11,25 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:seller'])->group(function() {
     Route::get('/dashboard-seller', function () {
-        return Inertia::render('Dashboard');
+        return Inertia::render('Seller/Dashboard');
     })->name('dashboard-seller');
+
+    // Route::get('/toko', function () {
+    //     return Inertia::render('Seller/Toko');
+    // })->name('toko');
+    // Route::get('/produk', function () {
+    //     return Inertia::render('Seller/Produk');
+    // })->name('produk');
+    // Route::get('/kategori', function () {
+    //     return Inertia::render('Seller/Kategori');
+    // })->name('kategori');
+    // Route::get('/transaksi', function () {
+    //     return Inertia::render('Seller/Transaksi');
+    // })->name('transaksi');
 });
+
+
+
 
 
 

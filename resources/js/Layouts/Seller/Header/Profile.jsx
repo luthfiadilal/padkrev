@@ -1,9 +1,12 @@
 import { Icon } from '@iconify/react';
+import { Link, router } from '@inertiajs/react';
 import { Button, Dropdown } from 'flowbite-react';
-import { Link } from 'react-router';
 // import user1 from '/src/assets/images/profile/user-1.jpg';
 
 const Profile = () => {
+    const handletoProfile = () => {
+        router.get(route('profile.edit'));
+    };
     return (
         <div className="group/menu relative">
             <Dropdown
@@ -23,8 +26,7 @@ const Profile = () => {
                 )}
             >
                 <Dropdown.Item
-                    as={Link}
-                    to="#"
+                    onClick={handletoProfile}
                     className="bg-hover group/link flex w-full items-center gap-3 px-3 py-3 text-dark"
                 >
                     <Icon icon="solar:user-circle-outline" height={20} />

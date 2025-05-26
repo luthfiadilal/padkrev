@@ -1,5 +1,5 @@
-import SidebarLayout from '@/Layouts/Seller/Sidebar/Sidebar';
-import Header from '../Layouts/Seller/Header/Header';
+import Header from '../../Layouts/Seller/Header/Header';
+import SidebarLayout from '../../Layouts/Seller/Sidebar/Sidebar';
 
 export default function Dashboard() {
     return (

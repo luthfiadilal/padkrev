@@ -3,9 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Admin;
+use App\Models\Pembeli;
+use App\Models\Penjual;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -45,5 +48,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function penjual()
+    {
+        return $this->hasOne(Penjual::class, 'id_penjual');
+    }
+
+    public function pembeli()
+    {
+        return $this->hasOne(Pembeli::class, 'id_pembeli');
+    }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'id_admin');
     }
 }

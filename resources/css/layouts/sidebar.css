@@ -9,46 +9,46 @@
 
 .menu-sidebar {
     height: 100%;
-    width: 256px !important;
-    background: var(--bs-white);
+    width: 256px;
+    background: #1f6fd8;
     top: 0;
     left: 0px;
     transition: left 0.4s ease-in-out;
 }
 
 .sidebar-nav .caption {
-    padding-top: 20px !important;
-    margin-top: 20px !important;
+    padding-top: 20px;
+    margin-top: 20px;
     border-top: 1px solid var(--color-border);
 }
 
 .sidebar-nav .caption:first-child {
-    padding-top: 0 !important;
-    margin-top: 0px !important;
-    border-top: 0 !important;
+    padding-top: 0;
+    margin-top: 0px;
+    border-top: 0;
 }
 
 .sidebar-dropdown li a {
     opacity: 0.9;
     padding: 8px 16px;
-    box-shadow: none !important;
+    box-shadow: none;
 }
 .sidebar-dropdown li a.active {
     opacity: 1;
-    color: var(--color-primary) !important;
+    color: var(--color-primary);
 }
 
 .sidebar-dropdown li a {
-    background-color: transparent !important;
+    background-color: transparent;
 }
 
 .sidebar-dropdown li a:hover {
-    background-color: transparent !important;
+    background-color: transparent;
     opacity: 1;
 }
 
 .sidebar-dropdown li button:hover {
-    background-color: transparent !important;
+    background-color: transparent;
 }
 
 .sidebar-dropdown li .iconify--fad {
