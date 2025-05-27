@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KategoriController;
 
 Route::get('/', function () {
     return Inertia::render('LandingPage/Home');
@@ -28,7 +29,8 @@ Route::middleware(['auth', 'role:seller'])->group(function() {
     // })->name('transaksi');
 });
 
-
+Route::get('/kategori', [KategoriController::class, 'create'])->name('kategori-create');
+Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori-store');
 
 
 

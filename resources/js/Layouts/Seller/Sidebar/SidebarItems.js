@@ -35,7 +35,7 @@ const SidebarContent = [
                 icon: 'solar:bedside-table-3-linear',
                 id: uniqueId(),
                 url: '/kategori',
-                // route: 'kategori',
+                route: 'kategori-create',
             },
             {
                 name: 'Transaksi',
