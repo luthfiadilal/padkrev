@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Seller;
 
+use App\Http\Controllers\Controller;
 use App\Models\Produk;
 use App\Models\Kategori;
 use App\Models\TipeProduk;
@@ -16,16 +17,45 @@ class ProdukController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Hanya ambil produk milik penjual yang login
-        $produks = Produk::where('penjual_id', Auth::id()->penjual->id_penjual)
-            ->with(['kategori', 'tipeProduk'])
-            ->latest()
-            ->paginate(10);
+        $query = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
+        ->with(['kategori', 'tipeProduk']);
 
-        return Inertia::render('Seller/Produk/Index', [
-            'produks' => $produks
+        // Filter by category
+        if ($request->categoryId) {
+            $query->where('kategori_id', $request->categoryId);
+        }
+
+        // Filter by product type
+        if ($request->productTypeId) {
+            $query->where('tipe_produk_id', $request->productTypeId);
+        }
+
+        // Sorting
+        switch ($request->sortBy) {
+            case 'price_asc':
+                $query->orderBy('harga');
+                break;
+            case 'price_desc':
+                $query->orderByDesc('harga');
+                break;
+            default:
+                $query->latest();
+                break;
+        }
+
+        $produks = $query->paginate(10);
+
+        // Get all categories and product types for filters
+        $categories = Kategori::all();
+        $productTypes = TipeProduk::all();
+
+        return Inertia::render('Seller/Index', [
+            'produks' => $produks,
+            'categories' => $categories,
+            'productTypes' => $productTypes,
+            'filters' => $request->only(['sortBy', 'categoryId', 'productTypeId']),
         ]);
     }
 
@@ -34,7 +64,7 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Seller/Produk/Create', [
+        return Inertia::render('Seller/ProdukCreate', [
             'kategoris' => Kategori::all(),
             'tipeProduks' => TipeProduk::all()
         ]);
@@ -48,7 +78,8 @@ class ProdukController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:255',
             'kategori_id' => 'required|exists:kategoris,id',
-            'tipe_produk_id' => 'required|exists:tipe_produks,id',
+            'tipe_produk_id' => 'required_without:new_tipe_produk',
+            'new_tipe_produk' => 'required_without:tipe_produk_id|string|max:255|unique:tipe_produks,tipe_produk',
             'deskripsi' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'gallery.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -59,7 +90,10 @@ class ProdukController extends Controller
             'warna' => 'nullable|string',
             'stok' => 'nullable|integer|min:0',
             'status' => 'boolean'
-        ]);
+        ], [
+        'tipe_produk_id.required_without' => 'Pilih tipe produk atau buat baru',
+        'new_tipe_produk.required_without' => 'Isi nama tipe produk baru',
+    ]);
 
         if ($validator->fails()) {
             return redirect()->back()
@@ -68,14 +102,22 @@ class ProdukController extends Controller
         }
 
         $data = $validator->validated();
-        $data['penjual_id'] = Auth::user()->penjual->id_penjual; // Tambahkan penjual_id dari user yang login
+        $data['penjual_id'] = Auth::user()->penjual->id_penjual;
 
-        // Upload foto utama
+
+        if ($request->has('new_tipe_produk') && !empty($request->new_tipe_produk)) {
+            $tipeProduk = TipeProduk::create([
+                'tipe_produk' => $request->new_tipe_produk
+            ]);
+            $data['tipe_produk_id'] = $tipeProduk->id;
+        }
+
+
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('produk/foto', 'public');
         }
 
-        // Upload gallery
+
         if ($request->hasFile('gallery')) {
             $galleryPaths = [];
             foreach ($request->file('gallery') as $image) {
@@ -87,12 +129,10 @@ class ProdukController extends Controller
 
         Produk::create($data);
 
-        return redirect()->route('seller.produk.index')->with('success', 'Produk berhasil ditambahkan');
+        return redirect()->route('produk-index')->with('success', 'Produk berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show($id)
     {
         // Hanya bisa melihat produk miliknya sendiri
@@ -177,7 +217,7 @@ class ProdukController extends Controller
 
         $produk->update($data);
 
-        return redirect()->route('seller.produk.index')->with('success', 'Produk berhasil diperbarui');
+        return redirect()->route('produk-index')->with('success', 'Produk berhasil diperbarui');
     }
 
     /**
@@ -203,7 +243,7 @@ class ProdukController extends Controller
 
         $produk->delete();
 
-        return redirect()->route('seller.produk.index')->with('success', 'Produk berhasil dihapus');
+        return redirect()->route('produk-index')->with('success', 'Produk berhasil dihapus');
     }
 
     /**

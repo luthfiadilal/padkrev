@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\Seller\ProdukController;
 
 Route::get('/', function () {
     return Inertia::render('LandingPage/Home');
@@ -18,15 +19,18 @@ Route::middleware(['auth', 'role:seller'])->group(function() {
     // Route::get('/toko', function () {
     //     return Inertia::render('Seller/Toko');
     // })->name('toko');
-    // Route::get('/produk', function () {
-    //     return Inertia::render('Seller/Produk');
-    // })->name('produk');
+    Route::get('/produk',[ProdukController::class, 'index'])->name('produk-index');
+    Route::get('/produk/create',[ProdukController::class, 'create'])->name('produk-create');
+    Route::post('/produk', [ProdukController::class, 'store'])->name('produk-store');
+    Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk-update');
     // Route::get('/kategori', function () {
     //     return Inertia::render('Seller/Kategori');
     // })->name('kategori');
     // Route::get('/transaksi', function () {
     //     return Inertia::render('Seller/Transaksi');
     // })->name('transaksi');
+
+
 });
 
 Route::get('/kategori', [KategoriController::class, 'create'])->name('kategori-create');

@@ -88,11 +88,12 @@ class Produk extends Model
     // Accessor untuk gallery
     public function getGalleryUrlsAttribute()
     {
-        if (empty($this->gallery)) return [];
+        if (!$this->foto) return null;
 
-        return array_map(function($file) {
-            return asset('storage/' . $file);
-        }, $this->gallery);
+        // Hapus 'storage/' jika ada di database
+        $cleanPath = str_replace('storage/', '', $this->foto);
+
+        return asset("storage/{$cleanPath}");
     }
 
     // Accessor untuk harga diskon

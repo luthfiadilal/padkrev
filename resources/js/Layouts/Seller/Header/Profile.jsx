@@ -10,6 +10,10 @@ const Profile = () => {
     const handletoEdit = () => {
         router.get(route('profile.edit'));
     };
+
+    const handleLogout = () => {
+        router.post(route('logout'));
+    };
     return (
         <div className="group/menu relative">
             <Dropdown
@@ -52,10 +56,9 @@ const Profile = () => {
                 </Dropdown.Item>
                 <div className="p-3 pt-0">
                     <Button
-                        as={Link}
                         size={'sm'}
-                        to="/auth/login"
-                        className="mt-2 border border-primary bg-transparent text-primary outline-none hover:bg-lightprimary focus:outline-none"
+                        onClick={handleLogout}
+                        className="mt-2 w-full border border-primary bg-transparent text-primary outline-none hover:bg-lightprimary focus:outline-none"
                     >
                         Logout
                     </Button>

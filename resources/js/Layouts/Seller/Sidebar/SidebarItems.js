@@ -28,7 +28,7 @@ const SidebarContent = [
                 icon: 'solar:box-linear',
                 id: uniqueId(),
                 url: '/produk',
-                // route: 'produk',
+                route: 'produk-index',
             },
             {
                 name: 'Kategori',
