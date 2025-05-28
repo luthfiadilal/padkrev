@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 export default function About() {
@@ -6,14 +7,50 @@ export default function About() {
         triggerOnce: true,
         threshold: 0.2,
     });
+
+    const [elemen, setElemen] = useState(false);
+    const [vector2, setVector2] = useState(false);
+    const [shoppingBag, setShoppingBag] = useState(false);
+    const [ai, setAi] = useState(false);
+    const [map, setMap] = useState(false);
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const [elemenRes, vector2Res, shoppingBagRes, aiRes, mapRes] =
+                    await Promise.all([
+                        axios.get('/api/elemen/Elemen'), // Sesuaikan dengan nama di database
+                        axios.get('/api/elemen/Vector 2'),
+                        axios.get('/api/elemen/Shopping Bag'), // Sesuaikan dengan nama di database
+                        axios.get('/api/elemen/AI'), // Sesuaikan dengan nama di database
+                        axios.get('/api/elemen/Map'), // Sesuaikan dengan nama di database
+                    ]);
+
+                setElemen(elemenRes.data);
+                setVector2(vector2Res.data);
+                setShoppingBag(shoppingBagRes.data);
+                setAi(aiRes.data);
+                setMap(mapRes.data);
+            } catch (err) {
+                console.error('Error:', err);
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchImages();
+    }, []);
     return (
         <div className="relative mt-5 w-full">
             {/* Background SVG, tidak terpengaruh padding */}
-            <img
-                src="storage/img/elemen.svg"
-                alt="Background"
-                className="absolute left-0 top-[160px] -z-10 w-[400px] md:left-0 md:top-[100px] md:w-[500px]"
-            />
+            {elemen && (
+                <img
+                    src={elemen.image_url}
+                    alt="Background"
+                    className="absolute left-0 top-[160px] -z-10 w-[400px] md:left-0 md:top-[100px] md:w-[500px]"
+                />
+            )}
 
             <div className="w-full px-[40px] py-[120px] md:px-[100px]">
                 <div className="flex items-center justify-center">
@@ -36,18 +73,20 @@ export default function About() {
                     {/* Kiri: Ilustrasi */}
                     <div className="relative flex h-full w-full items-center justify-center">
                         {/* Ilustrasi vector */}
-                        <motion.img
-                            initial={{ opacity: 0, x: -80 }}
-                            animate={inView ? { opacity: 1, x: 0 } : {}}
-                            transition={{
-                                delay: 0.3,
-                                duration: 1.6,
-                                ease: 'easeOut',
-                            }}
-                            src="storage/img/vector2.png"
-                            alt="Ilustrasi"
-                            className="relative z-10 w-full max-w-[600px] md:max-w-[800px]"
-                        />
+                        {vector2 && (
+                            <motion.img
+                                initial={{ opacity: 0, x: -80 }}
+                                animate={inView ? { opacity: 1, x: 0 } : {}}
+                                transition={{
+                                    delay: 0.3,
+                                    duration: 1.6,
+                                    ease: 'easeOut',
+                                }}
+                                src={vector2.image_url}
+                                alt="Ilustrasi"
+                                className="relative z-10 w-full max-w-[600px] md:max-w-[800px]"
+                            />
+                        )}
                     </div>
 
                     {/* Tengah & Kanan: Teks (gabung 2 kolom) */}
@@ -89,31 +128,40 @@ export default function About() {
                     className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3"
                 >
                     <div className="flex items-center gap-4 rounded-lg bg-white p-6 shadow-lg">
-                        <img
-                            src="storage/img/shopping-bag.svg"
-                            alt=""
-                            className="h-10 w-10"
-                        />
+                        {shoppingBag && (
+                            <img
+                                src={shoppingBag.image_url}
+                                alt=""
+                                className="h-10 w-10"
+                            />
+                        )}
+
                         <h4 className="text-base font-manropeBold text-primary">
                             Terintegrasi dan Lengkap
                         </h4>
                     </div>
                     <div className="flex items-center gap-4 rounded-lg bg-white p-6 shadow-lg">
-                        <img
-                            src="storage/img/ai.svg"
-                            alt=""
-                            className="h-10 w-10"
-                        />
+                        {ai && (
+                            <img
+                                src={ai.image_url}
+                                alt=""
+                                className="h-10 w-10"
+                            />
+                        )}
+
                         <h4 className="text-base font-manropeBold text-primary">
                             Dukungan Teknologi untuk UMKM
                         </h4>
                     </div>
                     <div className="flex items-center gap-4 rounded-lg bg-white p-6 shadow-lg">
-                        <img
-                            src="storage/img/map.svg"
-                            alt=""
-                            className="h-10 w-10"
-                        />
+                        {map && (
+                            <img
+                                src={map.image_url}
+                                alt=""
+                                className="h-10 w-10"
+                            />
+                        )}
+
                         <h4 className="text-base font-manropeBold text-primary">
                             Dukungan Teknologi untuk UMKM
                         </h4>

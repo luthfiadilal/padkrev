@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 export default function Hero() {
@@ -6,6 +8,29 @@ export default function Hero() {
         triggerOnce: true,
         threshold: 0.2,
     });
+    const [vector3d, setVector3d] = useState(false);
+    const [arrow, setArrow] = useState(false);
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const [vectorRes, arrowRes] = await Promise.all([
+                    axios.get('/api/elemen/Vector 3D'),
+                    axios.get('/api/elemen/Arrow 1'), // Sesuaikan dengan nama di database
+                ]);
+
+                setVector3d(vectorRes.data);
+                setArrow(arrowRes.data);
+            } catch (err) {
+                console.error('Error:', err);
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchImages();
+    }, []);
 
     return (
         <div className="mt-4 flex w-full flex-col-reverse items-center justify-between gap-10 px-4 py-4 md:flex-row md:gap-4 md:px-[100px]">
@@ -29,11 +54,16 @@ export default function Hero() {
                     <h5 className="text-14 font-manropeSemiBold text-secondary md:text-18">
                         Explore Now
                     </h5>
-                    <img
-                        src="storage/img/Arrow 1.svg"
-                        alt=""
-                        className="w-4 md:w-auto"
-                    />
+                    {arrow && (
+                        <img
+                            src={arrow.image_url}
+                            alt={arrow.name}
+                            className="w-4 md:w-auto"
+                            onError={(e) => {
+                                e.target.src = '/fallback-logo.png';
+                            }}
+                        />
+                    )}
                 </div>
             </motion.div>
 
@@ -44,11 +74,16 @@ export default function Hero() {
                 transition={{ delay: 0.4, duration: 1.2, ease: 'easeOut' }}
                 className="flex-2 relative w-full"
             >
-                <img
-                    className="mx-auto w-full max-w-[300px] md:max-w-[500px]"
-                    src="storage/img/vector3d.png"
-                    alt=""
-                />
+                {vector3d && (
+                    <img
+                        className="mx-auto w-full max-w-[300px] md:max-w-[500px]"
+                        src={vector3d.image_url}
+                        alt={vector3d.name}
+                        onError={(e) => {
+                            e.target.src = '/fallback-logo.png';
+                        }}
+                    />
+                )}
 
                 {/* Info bubble di bawah gambar - diubah untuk mobile */}
                 <motion.div

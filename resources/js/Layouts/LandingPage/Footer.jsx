@@ -1,4 +1,19 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
 export default function Footer() {
+    const [logo, setLogo] = useState(false);
+
+    useEffect(() => {
+        axios
+            .get('/api/elemen/Logo')
+            .then((response) => {
+                setLogo(response.data);
+            })
+            .catch((error) => {
+                console.error('Error loading logo:', error);
+            });
+    }, []);
     return (
         <footer className="bg-[#F5F5F5] px-10 py-10 md:px-24">
             <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
@@ -80,11 +95,13 @@ export default function Footer() {
                 {/* LOGO & LINK */}
                 <div className="flex flex-col items-start gap-2">
                     <div className="relative h-[50px] w-[150px]">
-                        <img
-                            className="absolute left-[-20px] top-[-6px] h-full w-full object-cover"
-                            src="storage/img/padkrevlogo.png"
-                            alt="Logo"
-                        />
+                        {logo && (
+                            <img
+                                className="absolute left-[-20px] top-[-6px] h-full w-full object-cover"
+                                src={logo.image_url}
+                                alt="Logo"
+                            />
+                        )}
                     </div>
 
                     <a

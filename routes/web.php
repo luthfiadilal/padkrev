@@ -3,6 +3,7 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\ElemenController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\Seller\ProdukController;
@@ -36,7 +37,8 @@ Route::middleware(['auth', 'role:seller'])->group(function() {
 Route::get('/kategori', [KategoriController::class, 'create'])->name('kategori-create');
 Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori-store');
 
-
+Route::get('/api/elemen/{name}', [ElemenController::class, 'get']);
+Route::get('/img/elemen/{name}', [ElemenController::class, 'getImage']);
 
 
 Route::middleware('auth')->group(function () {

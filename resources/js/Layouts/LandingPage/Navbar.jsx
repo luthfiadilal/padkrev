@@ -1,10 +1,34 @@
 import { router } from '@inertiajs/react';
+import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [logo, setLogo] = useState(null);
+    const [arrow, setArrow] = useState(false);
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const [logoRes, arrowRes] = await Promise.all([
+                    axios.get('/api/elemen/Logo'),
+                    axios.get('/api/elemen/Arrow 1'), // Sesuaikan dengan nama di database
+                ]);
+
+                setLogo(logoRes.data);
+                setArrow(arrowRes.data);
+            } catch (err) {
+                console.error('Error:', err);
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchImages();
+    }, []);
 
     // Variants untuk animasi
     const menuVariants = {
@@ -35,11 +59,16 @@ export default function Navbar() {
             <div className="flex items-center justify-between">
                 {/* Logo */}
                 <div className="h-[50px] w-[150px]">
-                    <img
-                        className="h-full w-full object-cover"
-                        src="storage/img/padkrevlogo.png"
-                        alt="Logo"
-                    />
+                    {logo && (
+                        <img
+                            className="h-full w-full object-cover"
+                            src={logo.image_url}
+                            alt={logo.name}
+                            onError={(e) => {
+                                e.target.src = '/fallback-logo.png';
+                            }}
+                        />
+                    )}
                 </div>
 
                 {/* Desktop Menu */}
@@ -164,11 +193,17 @@ export default function Navbar() {
                                         <h5 className="text-18 font-manropeSemiBold text-secondary">
                                             Register
                                         </h5>
-                                        <img
-                                            src="storage/img/Arrow 1.svg"
-                                            alt="arrow"
-                                            className="h-[24px] w-[24px] object-contain"
-                                        />
+                                        {arrow && (
+                                            <img
+                                                src={arrow.image_url}
+                                                alt={arrow.name}
+                                                className="h-[24px] w-[24px] object-contain"
+                                                onError={(e) => {
+                                                    e.target.src =
+                                                        '/fallback-logo.png';
+                                                }}
+                                            />
+                                        )}
                                     </div>
                                 </div>
                             </div>
