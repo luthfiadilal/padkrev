@@ -19,7 +19,7 @@ const MobileSidebar = () => {
         <>
             <div>
                 <Sidebar
-                    className="menu-sidebar fixed bg-primary pt-0 transition-all dark:bg-darkgray"
+                    className="menu-sidebar fixed bg-white pt-0 transition-all dark:bg-darkgray"
                     aria-label="Sidebar with multi-level dropdown example"
                 >
                     <div className="sidebarlogo flex items-center px-5 py-4 pb-7">

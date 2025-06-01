@@ -39,7 +39,7 @@ export default function ProdukPage({
                                             </h1>
                                             <Button
                                                 onClick={handleToCreateProduk}
-                                                className="rounded-md bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800"
+                                                className="rounded-md bg-primary px-2 py-1 text-sm text-white hover:bg-primaryemphasis dark:bg-blue-700 dark:hover:bg-blue-800"
                                             >
                                                 Tambah Produk
                                             </Button>
@@ -63,7 +63,7 @@ export default function ProdukPage({
                                                     onClick={
                                                         handleToCreateProduk
                                                     }
-                                                    className="mt-4 inline-block rounded-md bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800"
+                                                    className="mt-4 inline-block rounded-md bg-primary text-sm text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800"
                                                 >
                                                     Tambah Produk Pertama
                                                 </Button>

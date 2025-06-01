@@ -20,7 +20,7 @@ class ProdukController extends Controller
     public function index(Request $request)
     {
         $query = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
-        ->with(['kategori', 'tipeProduk']);
+        ->with(['kategori:id,kategori', 'tipeProduk:id,tipe_produk']);
 
         // Filter by category
         if ($request->categoryId) {
@@ -53,8 +53,8 @@ class ProdukController extends Controller
 
         return Inertia::render('Seller/Index', [
             'produks' => $produks,
-            'categories' => $categories,
-            'productTypes' => $productTypes,
+            'kategoris' => $categories,
+            'tipeProduks' => $productTypes,
             'filters' => $request->only(['sortBy', 'categoryId', 'productTypeId']),
         ]);
     }
@@ -64,7 +64,9 @@ class ProdukController extends Controller
      */
     public function create()
     {
+
         return Inertia::render('Seller/ProdukCreate', [
+
             'kategoris' => Kategori::all(),
             'tipeProduks' => TipeProduk::all()
         ]);
@@ -136,7 +138,7 @@ class ProdukController extends Controller
     public function show($id)
     {
         // Hanya bisa melihat produk miliknya sendiri
-        $produk = Produk::where('penjual_id', Auth::id()->penjual->id_penjual)
+        $produk = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
             ->with(['kategori', 'tipeProduk', 'penjual'])
             ->findOrFail($id);
 
@@ -151,10 +153,10 @@ class ProdukController extends Controller
     public function edit($id)
     {
         // Hanya bisa mengedit produk miliknya sendiri
-        $produk = Produk::where('penjual_id', Auth::id()->penjual->id_penjual)
+        $produk = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
             ->findOrFail($id);
 
-        return Inertia::render('Seller/Produk/Edit', [
+        return Inertia::render('Seller/ProdukEdit', [
             'produk' => $produk,
             'kategoris' => Kategori::all(),
             'tipeProduks' => TipeProduk::all()
@@ -167,7 +169,7 @@ class ProdukController extends Controller
     public function update(Request $request, $id)
     {
         // Pastikan produk milik penjual yang login
-        $produk = Produk::where('penjual_id', Auth::id()->penjual->id_penjual)
+        $produk = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
             ->findOrFail($id);
 
         $validator = Validator::make($request->all(), [
@@ -226,7 +228,7 @@ class ProdukController extends Controller
     public function destroy($id)
     {
         // Pastikan produk milik penjual yang login
-        $produk = Produk::where('penjual_id', Auth::id()->penjual->id_penjual)
+        $produk = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
             ->findOrFail($id);
 
         // Hapus foto utama
@@ -252,7 +254,7 @@ class ProdukController extends Controller
     public function deleteGalleryImage($id, $index)
     {
         // Pastikan produk milik penjual yang login
-        $produk = Produk::where('penjual_id', Auth::id()->penjual->id_penjual)
+        $produk = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
             ->findOrFail($id);
 
         $gallery = $produk->gallery;

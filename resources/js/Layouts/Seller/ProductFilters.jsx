@@ -12,6 +12,9 @@ const ProductFilters = ({
         filters.productTypeId || '',
     );
 
+    console.log(filters);
+    console.log(sortBy, categoryId, productTypeId);
+
     const applyFilters = () => {
         router.get(
             route('produk-index'),
@@ -52,13 +55,13 @@ const ProductFilters = ({
                     <select
                         value={categoryId}
                         onChange={(e) => setCategoryId(e.target.value)}
-                        className="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                        className="w-full rounded-md border-gray-300 text-sm text-textgray shadow-sm focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                     >
                         <option value="">Semua Kategori</option>
                         {Array.isArray(categories) &&
                             categories.map((category) => (
                                 <option key={category.id} value={category.id}>
-                                    {category.nama}
+                                    {category.kategori}
                                 </option>
                             ))}
                     </select>
@@ -72,13 +75,13 @@ const ProductFilters = ({
                     <select
                         value={productTypeId}
                         onChange={(e) => setProductTypeId(e.target.value)}
-                        className="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                        className="w-full rounded-md border-gray-300 text-sm text-textgray shadow-sm focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                     >
                         <option value="">Semua Tipe</option>
                         {Array.isArray(productTypes) &&
                             productTypes.map((type) => (
                                 <option key={type.id} value={type.id}>
-                                    {type.nama}
+                                    {type.tipe_produk}
                                 </option>
                             ))}
                     </select>
@@ -92,7 +95,7 @@ const ProductFilters = ({
                     <select
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value)}
-                        className="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                        className="w-full rounded-md border-gray-300 text-sm text-textgray shadow-sm focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                     >
                         <option value="latest">Terbaru</option>
                         <option value="price_asc">Harga Terendah</option>
@@ -106,13 +109,13 @@ const ProductFilters = ({
                 <div className="flex items-end space-x-2">
                     <button
                         onClick={applyFilters}
-                        className="rounded-md bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-700 dark:hover:bg-blue-800"
+                        className="rounded-md bg-primary px-4 py-2 text-sm text-white hover:bg-primaryemphasis dark:bg-primary dark:hover:bg-primaryemphasis"
                     >
                         Terapkan Filter
                     </button>
                     <button
                         onClick={resetFilters}
-                        className="rounded-md bg-gray-200 px-4 py-2 text-sm text-gray-800 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                        className="rounded-md bg-gray-200 px-4 py-2 text-sm text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                     >
                         Reset
                     </button>

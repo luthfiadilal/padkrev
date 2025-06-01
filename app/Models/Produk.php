@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Kategori;
+use App\Models\TipeProduk;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Produk extends Model
 {
@@ -70,13 +72,13 @@ class Produk extends Model
     // Relasi dengan kategori
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class);
+        return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 
     // Relasi dengan tipe produk
     public function tipeProduk()
     {
-        return $this->belongsTo(TipeProduk::class);
+        return $this->belongsTo(TipeProduk::class, 'tipe_produk_id');
     }
 
     // Accessor untuk foto

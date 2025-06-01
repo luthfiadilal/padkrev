@@ -18,7 +18,7 @@ const SidebarLayout = () => {
     return (
         <div className="hidden xl:block">
             <Sidebar
-                className="menu-sidebar fixed pt-0 transition-all dark:bg-darkgray"
+                className="menu-sidebar fixed bg-white pt-0 transition-all dark:bg-darkgray"
                 aria-label="Sidebar with multi-level dropdown example"
             >
                 <div className="sidebarlogo flex items-center px-5">
