@@ -6,6 +6,14 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+        @php
+
+            $favicon = \App\Models\Elemen::where('name', 'Favicon')->first();
+            $faviconUrl = $favicon ? url('/elemen/Favicon/image') : asset('favicon.ico');
+        @endphp
+
+        <link rel="icon" type="image/svg+xml" href="{{ $faviconUrl }}?v={{ time() }}" />
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />

@@ -7,10 +7,17 @@ use App\Http\Controllers\ElemenController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\Seller\ProdukController;
+use App\Http\Controllers\Buyer\ProdukBuyerController;
 
 Route::get('/', function () {
     return Inertia::render('LandingPage/Home');
 });
+
+Route::middleware(['auth', 'role:buyer'])->group(function() {
+    Route::get('/marketplace', [ProdukBuyerController::class, 'index'])->name('marketplace-index');
+
+});
+
 
 Route::middleware(['auth', 'role:seller'])->group(function() {
     Route::get('/dashboard-seller', function () {
@@ -40,7 +47,8 @@ Route::get('/kategori', [KategoriController::class, 'create'])->name('kategori-c
 Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori-store');
 
 Route::get('/api/elemen/{name}', [ElemenController::class, 'get']);
-Route::get('/img/elemen/{name}', [ElemenController::class, 'getImage']);
+Route::get('/elemen/{name}/image', [\App\Http\Controllers\ElemenController::class, 'getImage']);
+
 
 
 Route::middleware('auth')->group(function () {

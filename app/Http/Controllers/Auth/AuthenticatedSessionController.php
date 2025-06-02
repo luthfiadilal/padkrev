@@ -32,6 +32,11 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        $request->session()->forget('url.intended');
+
+        //  dd data user
+
+
 
         return redirect()->intended($this->redirectTo());
     }
@@ -52,12 +57,12 @@ class AuthenticatedSessionController extends Controller
     protected function redirectTo(): string
     {
         $user = Auth::user();
-
+         logger()->info('Redirect user after login', ['user_id' => $user->id, 'role' => $user->role]);
         return match ($user->role) {
             'admin' => route('dashboard-admin'),
             'seller' => route('dashboard-seller'),
-            'buyer' => route('marketplace'),
-            default => route('dashboard'), // Fallback untuk role tidak terdaftar
+            'buyer' => route('marketplace-index'),
+            default => route('marketplace'), // Fallback untuk role tidak terdaftar
         };
     }
 }

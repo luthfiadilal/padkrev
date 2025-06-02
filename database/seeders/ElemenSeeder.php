@@ -53,6 +53,12 @@ class ElemenSeeder extends Seeder
             'wo.svg' => [
                 'name' => 'WO',
             ],
+            'favicon.svg' => [
+                'name' => 'Favicon'
+            ],
+            'banner.svg' => [
+                'name' => 'Banner'
+            ]
 
 
 

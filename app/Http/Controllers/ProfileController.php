@@ -16,34 +16,48 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function index()  {
+    public function index()
+    {
         $user = Auth::user()->load(['penjual', 'pembeli', 'admin']);
 
-        return Inertia::render('Seller/ProfilePage', [
-            'user' => $user,
-            'roleData' => match ($user->role) {
-                'seller' => $user->penjual,
-                'buyer' => $user->pembeli,
-                'admin' => $user->admin,
-                default => null,
-            }
-        ]);
-
+        return match ($user->role) {
+            'seller' => Inertia::render('Seller/ProfilePage', [
+                'user' => $user,
+                'roleData' => $user->penjual
+            ]),
+            'buyer' => Inertia::render('Buyer/ProfilePage', [
+                'user' => $user,
+                'roleData' => $user->pembeli
+            ]),
+            'admin' => Inertia::render('Admin/ProfilePage', [
+                'user' => $user,
+                'roleData' => $user->admin
+            ]),
+            default => abort(403, 'Unauthorized role'),
+        };
     }
 
     public function edit()
     {
         $user = Auth::user()->load(['penjual', 'pembeli', 'admin']);
 
-        return Inertia::render('Seller/EditPage', [
-            'user' => $user,
-            'roleData' => match ($user->role) {
-                'seller' => $user->penjual,
-                'buyer' => $user->pembeli,
-                'admin' => $user->admin,
-                default => null,
-            }
-        ]);
+        return match ($user->role) {
+            'seller' => Inertia::render('Seller/EditPage', [
+                'user' => $user,
+                'roleData' => $user->penjual
+            ]),
+            'buyer' => Inertia::render('Buyer/EditPage', [
+                'user' => $user,
+                'roleData' => $user->pembeli
+            ]),
+            'admin' => Inertia::render('Admin/EditPage', [
+                'user' => $user,
+                'roleData' => $user->admin
+            ]),
+            default => abort(403, 'Unauthorized role'),
+        };
+
+
     }
 
 
