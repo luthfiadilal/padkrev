@@ -1,5 +1,7 @@
 import { Icon } from '@iconify/react'; // ← Tambah import ini
+import axios from 'axios';
 import { Badge, Button } from 'flowbite-react';
+import { toast } from 'react-toastify';
 
 const CardProduk = ({ product, onClick }) => {
     const getImageUrl = (path) => {
@@ -12,8 +14,22 @@ const CardProduk = ({ product, onClick }) => {
         onClick?.(); // Panggil onClick prop jika ada
     };
 
-    const handleTambahKeranjang = () => {
-        alert(`Tambahkan ke keranjang: ${product.nama}`);
+    const handleTambahKeranjang = async () => {
+        try {
+            const response = await axios.post('/buyer/cart', {
+                produk_id: product.id,
+                quantity: 1,
+            });
+            toast.success(
+                response.data.message || 'Berhasil menambahkan ke keranjang',
+            );
+        } catch (error) {
+            console.error('Gagal tambah keranjang:', error);
+            toast.error(
+                error.response?.data?.message ||
+                    'Terjadi kesalahan saat menambahkan ke keranjang',
+            );
+        }
     };
 
     const handleChat = () => {
@@ -49,12 +65,9 @@ const CardProduk = ({ product, onClick }) => {
     };
 
     return (
-        <div
-            onClick={handleClick}
-            className="flex h-[300px] w-full flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-all duration-300 hover:shadow"
-        >
+        <div className="flex h-[300px] w-full flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-all duration-300 hover:shadow">
             {/* Gambar Produk */}
-            <div className="relative h-[50%]">
+            <div className="relative h-[50%]" onClick={handleClick}>
                 <img
                     src={getImageUrl(product.foto)}
                     alt={product.nama}

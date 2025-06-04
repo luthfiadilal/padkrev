@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\ElemenController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\Buyer\CartController;
 use App\Http\Controllers\Seller\ProdukController;
 use App\Http\Controllers\Buyer\ProdukBuyerController;
 
@@ -16,6 +17,15 @@ Route::get('/', function () {
 Route::middleware(['auth', 'role:buyer'])->group(function() {
     Route::get('/marketplace', [ProdukBuyerController::class, 'index'])->name('marketplace-index');
 
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');       // Halaman keranjang (Inertia)
+
+    // Route::post('/cart', [CartController::class, 'store'])->name('cart.store');      // Tambah ke keranjang
+    Route::put('/cart/{id}', [CartController::class, 'update'])->name('cart.update'); // Update qty
+    Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy'); // Hapus item
+});
+
+Route::middleware(['auth', 'role:buyer'])->prefix('buyer')->group(function () {
+    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
 });
 
 

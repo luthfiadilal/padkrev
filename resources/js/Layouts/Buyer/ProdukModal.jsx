@@ -1,7 +1,9 @@
 import { Icon } from '@iconify/react';
+import axios from 'axios';
 import { Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import Modal from '../../Components/Modal'; // Sesuaikan path sesuai struktur proyek Anda
+import { toast } from 'react-toastify';
+import Modal from '../../Components/Modal';
 
 const ProdukModal = ({ product, showModal, onClose }) => {
     if (!product) return null;
@@ -52,8 +54,22 @@ Apakah produk ini masih tersedia?`;
         }
     };
 
-    const handleTambahKeranjang = () => {
-        alert(`Tambahkan ${quantity} ${product.nama} ke keranjang`);
+    const handleTambahKeranjang = async () => {
+        try {
+            const response = await axios.post('/buyer/cart', {
+                produk_id: product.id,
+                quantity: 1,
+            });
+            toast.success(
+                response.data.message || 'Berhasil menambahkan ke keranjang',
+            );
+        } catch (error) {
+            console.error('Gagal tambah keranjang:', error);
+            toast.error(
+                error.response?.data?.message ||
+                    'Terjadi kesalahan saat menambahkan ke keranjang',
+            );
+        }
     };
 
     return (

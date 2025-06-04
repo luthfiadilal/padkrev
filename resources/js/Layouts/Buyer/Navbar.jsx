@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import { router } from '@inertiajs/react';
 import axios from 'axios';
 import { Navbar as FlowbiteNavbar } from 'flowbite-react';
 import { useEffect, useState } from 'react';
@@ -39,6 +40,10 @@ export default function Navbar({ user }) {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const handleToCart = () => {
+        router.get(route('cart.index'));
+    };
 
     return (
         <FlowbiteNavbar
@@ -110,6 +115,7 @@ export default function Navbar({ user }) {
             <div className="flex items-center gap-4">
                 <button className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
                     <Icon
+                        onClick={handleToCart}
                         icon="solar:cart-3-outline"
                         width={26}
                         className={`dark:text-gray-300 ${isScrolled ? 'text-primary' : 'text-textgray'}`}

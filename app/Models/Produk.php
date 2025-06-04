@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cart;
 use App\Models\Kategori;
 use App\Models\TipeProduk;
 use Illuminate\Support\Str;
@@ -38,6 +39,30 @@ class Produk extends Model
         'status' => 'boolean'
     ];
 
+    // Relasi dengan penjual
+    public function penjual()
+    {
+        return $this->belongsTo(Penjual::class, 'penjual_id', 'id');
+    }
+
+    // Relasi dengan kategori
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
+
+    // Relasi dengan tipe produk
+    public function tipeProduk()
+    {
+        return $this->belongsTo(TipeProduk::class, 'tipe_produk_id');
+    }
+
+    // Tambahkan relasi ke keranjang
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'produk_id');
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -61,24 +86,6 @@ class Produk extends Model
                 }
             }
         });
-    }
-
-    // Relasi dengan penjual
-    public function penjual()
-    {
-        return $this->belongsTo(Penjual::class, 'penjual_id', 'id');
-    }
-
-    // Relasi dengan kategori
-    public function kategori()
-    {
-        return $this->belongsTo(Kategori::class, 'kategori_id');
-    }
-
-    // Relasi dengan tipe produk
-    public function tipeProduk()
-    {
-        return $this->belongsTo(TipeProduk::class, 'tipe_produk_id');
     }
 
     // Accessor untuk foto
