@@ -2,11 +2,19 @@ import { router } from '@inertiajs/react';
 import { Button, Checkbox, Label } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import CardProduk from './CardProduk';
+import ProdukModal from './ProdukModal';
 
 export default function FilterProduk({ products, categories, types }) {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedTypes, setSelectedTypes] = useState([]);
     const [sortOrder, setSortOrder] = useState('');
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
+    const handleProductClick = (product) => {
+        setSelectedProduct(product);
+        setShowModal(true);
+    };
 
     // ⏱ Trigger filter otomatis saat filter berubah
     useEffect(() => {
@@ -68,7 +76,9 @@ export default function FilterProduk({ products, categories, types }) {
                 <div className="md:hidden">
                     <details className="rounded-lg border p-4">
                         <summary className="font-bold flex cursor-pointer items-center justify-between">
-                            <span>▶ Filter Produk</span>
+                            <span className="font-manropeMedium">
+                                ▶ Filter Produk
+                            </span>
                             {hasActiveFilters && (
                                 <Button
                                     size="xs"
@@ -77,7 +87,7 @@ export default function FilterProduk({ products, categories, types }) {
                                         e.stopPropagation();
                                         resetFilters();
                                     }}
-                                    className="ml-2 bg-secondary"
+                                    className="ml-2 bg-secondary font-manropeMedium"
                                 >
                                     Reset
                                 </Button>
@@ -93,7 +103,7 @@ export default function FilterProduk({ products, categories, types }) {
                                             className="flex items-center gap-2"
                                         >
                                             <Checkbox
-                                                className="text-primary focus:outline-none focus:ring-0"
+                                                className="font-manropeMedium text-primary focus:outline-none focus:ring-0"
                                                 id={`kategori-${kategori.id}`}
                                                 checked={selectedCategories.includes(
                                                     kategori.id,
@@ -105,6 +115,7 @@ export default function FilterProduk({ products, categories, types }) {
                                                 }
                                             />
                                             <Label
+                                                className="font-manropeMedium"
                                                 htmlFor={`kategori-${kategori.id}`}
                                             >
                                                 {kategori.kategori}
@@ -123,7 +134,7 @@ export default function FilterProduk({ products, categories, types }) {
                                             className="flex items-center gap-2"
                                         >
                                             <Checkbox
-                                                className="text-primary focus:outline-none focus:ring-0"
+                                                className="font-manropeMedium text-primary focus:outline-none focus:ring-0"
                                                 id={`tipe-${tipe.id}`}
                                                 checked={selectedTypes.includes(
                                                     tipe.id,
@@ -132,7 +143,10 @@ export default function FilterProduk({ products, categories, types }) {
                                                     handleTypeChange(tipe.id)
                                                 }
                                             />
-                                            <Label htmlFor={`tipe-${tipe.id}`}>
+                                            <Label
+                                                className="font-manropeMedium"
+                                                htmlFor={`tipe-${tipe.id}`}
+                                            >
                                                 {tipe.tipe_produk}
                                             </Label>
                                         </div>
@@ -141,8 +155,10 @@ export default function FilterProduk({ products, categories, types }) {
                             </div>
 
                             <div>
-                                <h2 className="font-bold mb-2">Harga</h2>
-                                <div className="flex gap-2">
+                                <h2 className="font-bold mb-2 font-manropeMedium">
+                                    Harga
+                                </h2>
+                                <div className="flex gap-2 font-manropeMedium">
                                     <Button
                                         size="xs"
                                         color={
@@ -183,21 +199,21 @@ export default function FilterProduk({ products, categories, types }) {
 
                 {/* Desktop filter */}
                 <div className="hidden space-y-6 md:block">
-                    <div className="flex items-center justify-between">
-                        <h2 className="font-bold text-lg">Filter</h2>
+                    <div className="mt-[-20px] flex items-center justify-between">
+                        <h2 className="text-lg font-manropeSemiBold">Filter</h2>
                         {hasActiveFilters && (
                             <Button
                                 size="xs"
                                 color="failure"
                                 onClick={resetFilters}
-                                className="bg-secondary"
+                                className="bg-secondary px-2 py-1 text-center font-manropeMedium text-white hover:bg-secondaryemphasis"
                             >
                                 Reset Filter
                             </Button>
                         )}
                     </div>
 
-                    <div>
+                    <div className="font-manropeMedium">
                         <h2 className="font-bold mb-2">Kategori</h2>
                         <div className="grid grid-cols-1 gap-2">
                             {categories.map((kategori) => (
@@ -223,7 +239,7 @@ export default function FilterProduk({ products, categories, types }) {
                         </div>
                     </div>
 
-                    <div>
+                    <div className="font-manropeMedium">
                         <h2 className="font-bold mb-2">Tipe Produk</h2>
                         <div className="grid grid-cols-1 gap-2">
                             {types.map((tipe) => (
@@ -249,7 +265,7 @@ export default function FilterProduk({ products, categories, types }) {
                         </div>
                     </div>
 
-                    <div>
+                    <div className="font-manropeMedium">
                         <h2 className="font-bold mb-2">Harga</h2>
                         <div className="flex gap-2">
                             <Button
@@ -289,7 +305,11 @@ export default function FilterProduk({ products, categories, types }) {
             <div className="grid flex-1 grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {products.length > 0 ? (
                     products.map((product) => (
-                        <CardProduk key={product.id} product={product} />
+                        <CardProduk
+                            key={product.id}
+                            product={product}
+                            onClick={() => handleProductClick(product)} // Perhatikan ini
+                        />
                     ))
                 ) : (
                     <p className="col-span-full text-center">
@@ -297,6 +317,13 @@ export default function FilterProduk({ products, categories, types }) {
                     </p>
                 )}
             </div>
+            {/* Modal Detail Produk */}
+
+            <ProdukModal
+                product={selectedProduct}
+                showModal={showModal}
+                onClose={() => setShowModal(false)}
+            />
         </div>
     );
 }

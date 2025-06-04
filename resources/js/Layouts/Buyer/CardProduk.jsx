@@ -1,22 +1,58 @@
 import { Icon } from '@iconify/react'; // ← Tambah import ini
 import { Badge, Button } from 'flowbite-react';
 
-const CardProduk = ({ product }) => {
+const CardProduk = ({ product, onClick }) => {
     const getImageUrl = (path) => {
         const filename = path.split('/').pop();
         return `/storage/produk/foto/${filename}`;
+    };
+
+    const handleClick = (e) => {
+        e.stopPropagation(); // Mencegah event bubbling
+        onClick?.(); // Panggil onClick prop jika ada
     };
 
     const handleTambahKeranjang = () => {
         alert(`Tambahkan ke keranjang: ${product.nama}`);
     };
 
-    const handleBeliSekarang = () => {
-        alert(`Beli sekarang: ${product.nama}`);
+    const handleChat = () => {
+        // Format pesan yang lebih baik
+        const productName = product.nama;
+        const productPrice = new Intl.NumberFormat('id-ID').format(
+            product.harga,
+        );
+
+        // Buat pesan yang lebih profesional
+        const message = `Halo, saya tertarik dengan produk:
+
+        Nama Produk: ${productName}
+        Harga: Rp ${productPrice}
+
+        Apakah produk ini masih tersedia?`;
+
+        // Cek kontak penjual
+        if (product.penjual?.whatsapp_link) {
+            window.open(
+                `${product.penjual.whatsapp_link}?text=${encodeURIComponent(message)}`,
+            );
+        } else if (product.penjual?.no_hp) {
+            const phone = product.penjual.no_hp.startsWith('0')
+                ? '62' + product.penjual.no_hp.substring(1)
+                : product.penjual.no_hp;
+            window.open(
+                `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
+            );
+        } else {
+            alert('Kontak penjual tidak tersedia');
+        }
     };
 
     return (
-        <div className="flex h-[300px] w-full flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-all duration-300 hover:shadow">
+        <div
+            onClick={handleClick}
+            className="flex h-[300px] w-full flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-all duration-300 hover:shadow"
+        >
             {/* Gambar Produk */}
             <div className="relative h-[50%]">
                 <img
@@ -82,14 +118,21 @@ const CardProduk = ({ product }) => {
                     size="sm"
                     color="gray"
                     onClick={handleTambahKeranjang}
-                    className="col-span-1 flex items-center justify-center gap-1 p-2"
+                    className="col-span-1 flex items-center justify-center gap-1 p-2 text-textgray"
                 >
-                    <Icon icon="solar:cart-outline" width={18} />
+                    <Icon icon="solar:cart-large-4-linear" width={18} />
                 </Button>
                 <Button
                     size="sm"
-                    className="col-span-3 flex items-center justify-center bg-secondary hover:bg-orange-600"
-                    onClick={handleBeliSekarang}
+                    color="gray"
+                    className="col-span-1 flex items-center justify-center gap-1 p-2"
+                    onClick={handleChat}
+                >
+                    <Icon icon="solar:chat-round-line-linear" width={18} />
+                </Button>
+                <Button
+                    size="sm"
+                    className="col-span-2 flex items-center justify-center bg-secondary hover:bg-secondaryemphasis"
                 >
                     Beli
                 </Button>

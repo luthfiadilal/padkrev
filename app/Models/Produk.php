@@ -66,7 +66,7 @@ class Produk extends Model
     // Relasi dengan penjual
     public function penjual()
     {
-        return $this->belongsTo(Penjual::class);
+        return $this->belongsTo(Penjual::class, 'penjual_id', 'id');
     }
 
     // Relasi dengan kategori

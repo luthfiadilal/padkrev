@@ -40,7 +40,7 @@ export default function Banner() {
         );
 
     return (
-        <div className="w-full px-4 py-8 sm:px-10 sm:py-[30px]">
+        <div className="mb-[-20px] w-full px-4 py-8 sm:px-10 sm:py-[30px]">
             <div className="relative h-[320px] w-full overflow-hidden rounded-lg">
                 {banner && (
                     <>

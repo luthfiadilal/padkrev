@@ -76,6 +76,12 @@ class ProfileController extends Controller
             'foto_profil' => 'nullable|image|max:2048', // opsional
         ]);
 
+
+        $no_hp = $request->no_hp;
+        if ($no_hp && str_starts_with($no_hp, '0')) {
+            $no_hp = '62' . substr($no_hp, 1);
+        }
+
         $user->update($request->only('name', 'email'));
 
         $fotoProfilPath = null;
@@ -89,7 +95,7 @@ class ProfileController extends Controller
                 [
                     'nama_toko' => $request->nama_toko,
                     'deskripsi' => $request->deskripsi,
-                    'whatsapp_link' => $request->whatsapp_link,
+                    'whatsapp_link' => $no_hp ? 'https://wa.me/' . $no_hp : null,
                     'no_hp' => $request->no_hp,
                     'alamat' => $request->alamat,
                     'foto_profil' => $fotoProfilPath ?? $user->penjual->foto_profil ?? null,
@@ -113,7 +119,7 @@ class ProfileController extends Controller
             ),
         };
 
-        return back()->with('message', 'Profil berhasil diperbarui.');
+        return redirect()->route('profile.index')->with('message', 'Profil berhasil diperbarui.');
     }
 
 

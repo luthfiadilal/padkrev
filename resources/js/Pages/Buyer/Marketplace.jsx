@@ -5,13 +5,13 @@ import Navbar from '@/Layouts/Buyer/Navbar';
 import { usePage } from '@inertiajs/react';
 
 export default function Marketplace() {
-    const { products, categories, types } = usePage().props;
+    const { products, categories, types, user } = usePage().props;
     return (
         <div>
             <DynamicHead>
                 <title>Marketplace</title>
             </DynamicHead>
-            <Navbar />
+            <Navbar user={user} />
             <Banner />
             <FilterProduk
                 products={products}

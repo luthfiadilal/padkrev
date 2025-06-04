@@ -3,7 +3,8 @@ import { Link, router } from '@inertiajs/react';
 import { Button, Dropdown } from 'flowbite-react';
 // import user1 from '/src/assets/images/profile/user-1.jpg';
 
-const Profile = () => {
+const Profile = ({ user }) => {
+    console.log(user);
     const handletoProfile = () => {
         router.get(route('profile.index'));
     };
@@ -23,7 +24,11 @@ const Profile = () => {
                 renderTrigger={() => (
                     <span className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full hover:bg-lightprimary hover:text-primary group-hover/menu:bg-lightprimary group-hover/menu:text-primary">
                         <img
-                            src=""
+                            src={
+                                user?.pembeli?.foto_profil
+                                    ? `/storage/${user.pembeli.foto_profil}`
+                                    : '/images/default-profile.png'
+                            }
                             alt="logo"
                             height="35"
                             width="35"
@@ -52,13 +57,13 @@ const Profile = () => {
                     className="bg-hover group/link flex w-full items-center gap-3 px-3 py-3 text-dark"
                 >
                     <Icon icon="solar:checklist-linear" height={20} />
-                    My Task
+                    History Pembayaran
                 </Dropdown.Item>
                 <div className="p-3 pt-0">
                     <Button
                         size={'sm'}
                         onClick={handleLogout}
-                        className="mt-2 w-full border border-primary bg-transparent text-primary outline-none hover:bg-lightprimary focus:outline-none"
+                        className="mt-2 w-full border border-primary bg-transparent px-2 py-1 text-primary outline-none hover:bg-lightprimary focus:outline-none"
                     >
                         Logout
                     </Button>

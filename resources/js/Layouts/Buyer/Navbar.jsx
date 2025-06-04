@@ -4,8 +4,9 @@ import { Navbar as FlowbiteNavbar } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import Profile from './Profile';
 
-export default function Navbar() {
+export default function Navbar({ user }) {
     const [logo, setLogo] = useState(null);
+    const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -26,11 +27,28 @@ export default function Navbar() {
         fetchImages();
     }, []);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 10) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
         <FlowbiteNavbar
             fluid
             rounded
-            className="rounded-none px-4 py-3 shadow-sm dark:bg-gray-800"
+            className={`sticky top-0 z-50 rounded-none px-4 py-3 shadow-sm transition-all duration-300 ${
+                isScrolled
+                    ? 'bg-white/55 backdrop-blur-md dark:bg-gray-800/80'
+                    : 'bg-white dark:bg-gray-800'
+            }`}
         >
             {/* Bagian Kiri - Logo */}
             <FlowbiteNavbar.Brand href="/" className="flex-1 md:flex-none">
@@ -50,12 +68,14 @@ export default function Navbar() {
 
             {/* Bagian Tengah - Menu (Tanpa Bullet Points) */}
             <div className="hidden flex-1 justify-center md:flex">
-                <div className="flex list-none gap-8">
+                <div
+                    className={`flex list-none gap-8 ${isScrolled ? 'text-primary' : 'text-textgray'}`}
+                >
                     {' '}
                     {/* Tambahkan list-none di sini */}
                     <a
                         href="/marketplace"
-                        className={`text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white ${
+                        className={`font-manropeMedium hover:text-primary dark:text-gray-300 dark:hover:text-white ${
                             window.location.pathname === '/marketplace'
                                 ? 'font-medium'
                                 : ''
@@ -65,7 +85,7 @@ export default function Navbar() {
                     </a>
                     <a
                         href="/products"
-                        className={`text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white ${
+                        className={`font-manropeMedium hover:text-primary dark:text-gray-300 dark:hover:text-white ${
                             window.location.pathname === '/products'
                                 ? 'font-medium'
                                 : ''
@@ -75,7 +95,7 @@ export default function Navbar() {
                     </a>
                     <a
                         href="/developer-hub"
-                        className={`text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white ${
+                        className={`font-manropeMedium hover:text-primary dark:text-gray-300 dark:hover:text-white ${
                             window.location.pathname === '/developer-hub'
                                 ? 'font-medium'
                                 : ''
@@ -92,34 +112,38 @@ export default function Navbar() {
                     <Icon
                         icon="solar:cart-3-outline"
                         width={26}
-                        className="text-textgray dark:text-gray-300"
+                        className={`dark:text-gray-300 ${isScrolled ? 'text-primary' : 'text-textgray'}`}
                     />
                 </button>
-                <Profile />
+                <Profile user={user} />
             </div>
 
             {/* Toggle untuk Mobile */}
-            <FlowbiteNavbar.Toggle className="md:hidden" />
+            <FlowbiteNavbar.Toggle
+                className={`md:hidden ${isScrolled ? 'text-primary' : 'text-textgray'}`}
+            />
 
             {/* Menu Mobile (Tanpa Bullet Points) */}
-            <FlowbiteNavbar.Collapse className="list-none md:hidden">
+            <FlowbiteNavbar.Collapse
+                className={`list-none md:hidden ${isScrolled ? 'text-primary' : 'text-textgray'}`}
+            >
                 {' '}
                 {/* Tambahkan list-none di sini */}
                 <a
                     href="/marketplace"
-                    className="block px-3 py-2 text-gray-700 dark:text-gray-300"
+                    className="block px-3 py-2 font-manropeMedium dark:text-gray-300"
                 >
                     Marketplace
                 </a>
                 <a
                     href="/products"
-                    className="block px-3 py-2 text-gray-700 dark:text-gray-300"
+                    className="block px-3 py-2 font-manropeMedium dark:text-gray-300"
                 >
                     Products
                 </a>
                 <a
                     href="/developer-hub"
-                    className="block px-3 py-2 text-gray-700 dark:text-gray-300"
+                    className="block px-3 py-2 font-manropeMedium dark:text-gray-300"
                 >
                     Developer Hub
                 </a>

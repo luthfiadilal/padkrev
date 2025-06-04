@@ -81,18 +81,6 @@ export default function Edit({ user, roleData }) {
                                     }
                                 />
                             </div>
-                            <div>
-                                <Label htmlFor="whatsapp_link">
-                                    WhatsApp Link
-                                </Label>
-                                <TextInput
-                                    id="whatsapp_link"
-                                    value={data.whatsapp_link}
-                                    onChange={(e) =>
-                                        setData('whatsapp_link', e.target.value)
-                                    }
-                                />
-                            </div>
                         </>
                     )}
 
