@@ -31,7 +31,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
             )}
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className="font-manropeMedium">
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
 
@@ -96,7 +96,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
             </form>
 
-            <div className="mt-4 text-center">
+            <div className="font-manrope-Medium mt-4 text-center">
                 <span className="text-sm text-gray-600">
                     Don't have an account?{' '}
                     <Link

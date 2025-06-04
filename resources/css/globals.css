@@ -1,5 +1,4 @@
-
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 @import './layouts/container.css';
 @import './layouts/sidebar.css';
 @import './layouts/header.css';
@@ -10,176 +9,188 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer components {
-  .container {
-    @apply max-w-[1200px] px-30;
-  }
+    .container {
+        @apply max-w-[1200px] px-30;
+    }
 
+    .landingpage .container {
+        @apply max-w-[1320px];
+    }
 
-  .landingpage .container {
-    @apply max-w-[1320px];
-  }
+    html {
+        @apply overflow-x-hidden;
+    }
 
-  html {
-    @apply overflow-x-hidden;
-  }
+    body {
+        @apply text-sm text-bodytext;
+    }
 
-  body {
-    @apply text-sm text-bodytext;
-  }
+    .dropdown {
+        @apply relative overflow-hidden rounded-md bg-white shadow-md dark:bg-dark dark:shadow-dark-md;
+    }
 
-  .dropdown {
-    @apply shadow-md bg-white dark:bg-dark relative rounded-md dark:shadow-dark-md overflow-hidden;
-  }
+    .card-title {
+        @apply font-semibold mb-1 text-lg text-dark dark:text-white;
+    }
 
-  .card-title {
-    @apply text-lg font-semibold text-dark dark:text-white mb-1
-  }
+    .card-subtitle {
+        @apply text-15 text-bodytext;
+    }
 
-  .card-subtitle {
-    @apply text-15 text-bodytext
-  }
+    /*heading text color*/
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-semibold text-dark dark:text-white;
+    }
 
+    .border-ld {
+        @apply border-border dark:border-darkborder;
+    }
 
-  /*heading text color*/
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply text-dark dark:text-white font-semibold;
-  }
+    .bg-hover {
+        @apply hover:bg-lighthover hover:dark:bg-darkmuted;
+    }
 
-  .border-ld {
-    @apply border-border dark:border-darkborder;
-  }
+    .form-control input {
+        @apply w-full rounded-md border border-border bg-transparent text-sm dark:border-darkborder dark:bg-transparent;
+    }
 
-  .bg-hover {
-    @apply hover:bg-lighthover hover:dark:bg-darkmuted
-  }
+    .form-control-chat input {
+        @apply w-full rounded-md border-0 bg-transparent text-sm dark:bg-transparent;
+    }
 
-  .form-control input {
-    @apply rounded-md border border-border dark:border-darkborder bg-transparent dark:bg-transparent w-full text-sm;
-  }
+    .form-control-chat input:focus {
+        @apply w-full !border-0 bg-transparent text-sm ring-transparent dark:bg-transparent dark:ring-transparent;
+    }
 
-  .form-control-chat input {
-    @apply rounded-md border-0 bg-transparent dark:bg-transparent w-full text-sm;
-  }
+    .form-control-rounded input {
+        @apply w-full rounded-full border border-border bg-transparent text-sm dark:border-darkborder dark:bg-transparent;
+    }
 
-  .form-control-chat input:focus {
-    @apply !border-0 bg-transparent dark:bg-transparent w-full text-sm ring-transparent dark:ring-transparent;
-  }
+    .form-control-rounded input:focus {
+        @apply border-primary shadow-none outline-none ring-transparent ring-offset-0 dark:border-primary;
+    }
 
-  .form-control-rounded input {
-    @apply rounded-full border border-border dark:border-darkborder bg-transparent dark:bg-transparent w-full text-sm;
-  }
+    .form-control-textarea {
+        @apply w-full !rounded-md border border-border bg-transparent p-4 text-sm dark:border-darkborder dark:bg-transparent;
+    }
 
-  .form-control-rounded input:focus {
-    @apply border-primary dark:border-primary outline-none shadow-none ring-offset-0 ring-transparent;
-  }
+    .form-control-textarea:focus {
+        @apply border-primary shadow-none outline-none ring-transparent ring-offset-0 dark:border-primary;
+    }
 
-  .form-control-textarea {
-    @apply !rounded-md border border-border dark:border-darkborder bg-transparent dark:bg-transparent w-full text-sm p-4;
-  }
+    .form-control input:focus {
+        @apply border-primary shadow-none outline-none ring-transparent ring-offset-0 dark:border-primary;
+    }
 
-  .form-control-textarea:focus {
-    @apply border-primary dark:border-primary outline-none shadow-none ring-offset-0 ring-transparent;
-  }
+    .form-control-input {
+        @apply w-full rounded-md border border-border bg-transparent text-sm dark:border-darkborder dark:bg-transparent;
+    }
 
-  .form-control input:focus {
-    @apply border-primary dark:border-primary outline-none shadow-none ring-offset-0 ring-transparent;
-  }
+    .form-control-input:focus {
+        @apply border-primary shadow-none outline-none ring-transparent ring-offset-0 dark:border-primary;
+    }
 
-  .form-control-input {
-    @apply rounded-md border border-border dark:border-darkborder bg-transparent dark:bg-transparent w-full text-sm;
-  }
+    .form-control-validation input {
+        @apply rounded-md;
+    }
 
-  .form-control-input:focus {
-    @apply border-primary dark:border-primary outline-none shadow-none ring-offset-0 ring-transparent;
-  }
+    .form-rounded-md input {
+        @apply rounded-md;
+    }
 
-  .form-control-validation input {
-    @apply rounded-md
-  }
+    .input-center input {
+        @apply text-center;
+    }
 
-  .form-rounded-md input {
-    @apply rounded-md
-  }
+    .elipse {
+        @apply h-[10px] w-[18px];
+    }
 
-  .input-center input {
-    @apply text-center;
-  }
+    input::placeholder {
+        @apply text-bodytext;
+    }
 
-  .elipse {
-    @apply w-[18px] h-[10px]
-  }
+    .select-option select {
+        @apply font-medium w-auto border-0 bg-muted py-2 pe-9 ps-4 text-darklink focus:border-0 focus:ring-0 dark:text-white/80;
+    }
 
-  input::placeholder {
-    @apply text-bodytext
-  }
+    .select-md select {
+        @apply border-ld w-full rounded-md bg-transparent text-sm focus:border-primary focus:ring-0 dark:bg-darkgray dark:focus:border-primary;
+    }
 
-  .select-option select {
-    @apply bg-muted border-0 text-darklink dark:text-white/80 py-2 ps-4 pe-9 w-auto focus:border-0 focus:ring-0 font-medium;
-  }
+    .checkbox {
+        @apply h-[18px] w-[18px] border border-border bg-transparent focus:ring-0 focus:ring-offset-0 dark:border-darkborder;
+    }
 
-  .select-md select {
-    @apply border-ld bg-transparent dark:bg-darkgray w-full text-sm rounded-md focus:border-primary dark:focus:border-primary focus:ring-0;
-  }
+    .text-primary-ld {
+        @apply hover:text-primary dark:hover:text-primary;
+    }
 
-  .checkbox {
-    @apply h-[18px] w-[18px] border border-border dark:border-darkborder bg-transparent focus:ring-0 focus:ring-offset-0
-  }
+    /* Apps */
+    .left-part {
+        @apply border-ld w-80 border-e p-6;
+    }
 
-  .text-primary-ld {
-    @apply hover:text-primary dark:hover:text-primary;
-  }
+    .btn-circle {
+        @apply flex h-8 w-8 items-center justify-center !rounded-full p-0;
+    }
 
-  /* Apps */
-  .left-part {
-    @apply w-80 border-e border-ld p-6;
-  }
+    .btn-circle-hover {
+        @apply flex h-9 w-9 cursor-pointer items-center justify-center !rounded-full bg-transparent hover:bg-lightprimary hover:text-primary;
+    }
 
-  .btn-circle {
-    @apply h-8 w-8 !rounded-full flex justify-center items-center p-0;
-  }
+    .text-ld {
+        @apply text-dark dark:text-white;
+    }
 
-  .btn-circle-hover {
-    @apply h-9 w-9 flex justify-center items-center !rounded-full hover:bg-lightprimary hover:text-primary cursor-pointer bg-transparent
-  }
+    .avatar-full img {
+        @apply h-full w-full;
+    }
 
-  .text-ld {
-    @apply text-dark dark:text-white;
-  }
+    .sorting button {
+        @apply bg-transparent p-0 text-dark dark:text-white;
+    }
 
-  .avatar-full img {
-    @apply w-full h-full;
-  }
+    .sorting button:hover {
+        @apply bg-transparent;
+    }
 
-  .sorting button {
-    @apply bg-transparent text-dark dark:text-white p-0
-  }
+    .sorting button span {
+        @apply p-0;
+    }
 
-  .sorting button:hover {
-    @apply bg-transparent
-  }
+    .sorting ul li {
+        @apply px-4 py-2;
+    }
 
-  .sorting button span {
-    @apply p-0
-  }
+    .sorting ul li button:hover {
+        @apply hover:text-primary;
+    }
 
-  .sorting ul li {
-    @apply px-4 py-2
-  }
+    /* resources/css/app.css */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
 
-  .sorting ul li button:hover {
-    @apply hover:text-primary
-  }
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
 
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(100, 116, 139, 0.5); /* slate-500/50 */
+        border-radius: 6px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+    }
 
-
-
-
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(100, 116, 139, 0.8); /* slate-500/80 */
+    }
 }

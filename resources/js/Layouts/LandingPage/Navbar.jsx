@@ -54,6 +54,10 @@ export default function Navbar() {
     const handleLogin = () => {
         router.get('/dashboard-seller');
     };
+
+    const handleRegister = () => {
+        router.get('register');
+    };
     return (
         <nav className="sticky top-0 z-50 w-full bg-white px-6 py-4">
             <div className="flex items-center justify-between">
@@ -109,7 +113,10 @@ export default function Navbar() {
                         >
                             Login
                         </h5>
-                        <div className="flex cursor-pointer items-center gap-2">
+                        <div
+                            onClick={handleRegister}
+                            className="flex cursor-pointer items-center gap-2"
+                        >
                             <h5 className="text-18 font-manropeSemiBold text-secondary">
                                 Register
                             </h5>
@@ -189,7 +196,10 @@ export default function Navbar() {
                                     >
                                         Login
                                     </h5>
-                                    <div className="flex cursor-pointer items-center gap-2">
+                                    <div
+                                        onClick={handleRegister}
+                                        className="flex cursor-pointer items-center gap-2"
+                                    >
                                         <h5 className="text-18 font-manropeSemiBold text-secondary">
                                             Register
                                         </h5>

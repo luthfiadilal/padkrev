@@ -60,11 +60,6 @@ Apakah produk ini masih tersedia?`;
         <Modal show={showModal} onClose={onClose} maxWidth="2xl">
             <div className="p-6">
                 {/* Header */}
-                <div className="mb-6 border-b-0 pb-0">
-                    <h3 className="font-bold text-xl text-gray-900">
-                        {product.nama}
-                    </h3>
-                </div>
 
                 {/* Body */}
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -129,23 +124,28 @@ Apakah produk ini masih tersedia?`;
 
                     {/* Detail Produk */}
                     <div>
+                        <div className="mb-4 border-b-0 pb-0">
+                            <h3 className="text-xl font-manropeBold text-gray-900">
+                                {product.nama}
+                            </h3>
+                        </div>
                         {/* Harga */}
                         <div className="mb-4">
                             {product.harga_diskon ? (
                                 <div className="flex items-center gap-3">
-                                    <span className="font-bold text-2xl text-red-600">
+                                    <span className="text-2xl font-manropeBold text-secondary">
                                         Rp{' '}
                                         {new Intl.NumberFormat('id-ID').format(
                                             product.harga_diskon,
                                         )}
                                     </span>
-                                    <span className="text-sm text-gray-500 line-through">
+                                    <span className="text-sm font-manropeMedium text-textgray line-through">
                                         Rp{' '}
                                         {new Intl.NumberFormat('id-ID').format(
                                             product.harga,
                                         )}
                                     </span>
-                                    <span className="font-medium rounded bg-red-100 px-2 py-1 text-xs text-red-800">
+                                    <span className="rounded bg-red-100 px-2 py-1 text-xs font-manropeMedium text-red-800">
                                         {Math.round(
                                             (1 -
                                                 product.harga_diskon /
@@ -178,10 +178,10 @@ Apakah produk ini masih tersedia?`;
                                     )}
                                 </div>
                                 <div>
-                                    <h4 className="font-medium">
+                                    <h4 className="font-manropeSemiBold">
                                         {product.penjual?.nama_toko || 'Toko'}
                                     </h4>
-                                    <p className="text-sm text-gray-500">
+                                    <p className="font-manropeReguler text-sm text-gray-500">
                                         {product.penjual?.alamat ||
                                             'Alamat tidak tersedia'}
                                     </p>
@@ -295,17 +295,17 @@ Apakah produk ini masih tersedia?`;
                             >
                                 <Icon
                                     icon="solar:cart-large-4-linear"
-                                    className="mr-2 items-center"
+                                    className="mr-2 inline-block text-lg"
                                 />
                                 Tambah
                             </Button>
                             <Button
                                 onClick={handleTambahKeranjang}
-                                className="flex flex-1 items-center justify-center bg-secondary hover:bg-secondaryemphasis"
+                                className="flex flex-1 items-center justify-center bg-secondary text-white hover:bg-secondaryemphasis"
                             >
                                 <Icon
-                                    icon="solar:cart-large-4-linear"
-                                    className="mr-2 items-center"
+                                    icon="solar:wallet-money-outline"
+                                    className="mr-2 inline-block text-lg"
                                 />
                                 Beli
                             </Button>
