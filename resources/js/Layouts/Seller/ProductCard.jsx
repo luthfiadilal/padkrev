@@ -2,16 +2,21 @@ import { Icon } from '@iconify/react';
 import { router } from '@inertiajs/react';
 import { Badge, Button } from 'flowbite-react';
 
-const ProductCard = ({ product, onDeleteClick }) => {
+const ProductCard = ({ product, onDeleteClick, onProductClick }) => {
     const getImageUrl = (path) => {
         const filename = path.split('/').pop();
         return `/storage/produk/foto/${filename}`;
     };
 
+    const handleClick = (e) => {
+        e.stopPropagation(); // Mencegah event bubbling
+        onProductClick?.(product); // Panggil onClick prop jika ada
+    };
+
     return (
-        <div className="flex h-[300px] w-full flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-all duration-300 hover:shadow">
+        <div className="flex h-[300px] w-full flex-col overflow-hidden rounded-[18px] bg-white shadow-sm transition-all duration-300 hover:shadow">
             {/* Bagian 1: Gambar Produk */}
-            <div className="relative h-[46%]">
+            <div className="relative h-[46%] cursor-pointer">
                 <img
                     src={getImageUrl(product.foto)}
                     alt={product.nama}
@@ -19,9 +24,13 @@ const ProductCard = ({ product, onDeleteClick }) => {
                     onError={(e) => {
                         e.target.src = '/placeholder.jpg';
                     }}
+                    onClick={handleClick}
                 />
                 {product.harga_diskon && (
-                    <Badge color="red" className="absolute right-2 top-2">
+                    <Badge
+                        color="red"
+                        className="absolute right-2 top-2 rounded-[12px]"
+                    >
                         {Math.round(
                             (1 - product.harga_diskon / product.harga) * 100,
                         )}
@@ -62,7 +71,7 @@ const ProductCard = ({ product, onDeleteClick }) => {
                 </div>
                 <div className="flex flex-wrap gap-x-2 gap-y-1 text-xs text-gray-600">
                     {product.ukuran && <span>{product.ukuran}</span>}
-                    <span>Stok: {product.stok}</span>
+                    <span>Stok: {product.stok ?? 'Tersedia'}</span>
                 </div>
             </div>
 

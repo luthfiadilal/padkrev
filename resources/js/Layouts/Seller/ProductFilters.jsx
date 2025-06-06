@@ -12,9 +12,6 @@ const ProductFilters = ({
         filters.productTypeId || '',
     );
 
-    console.log(filters);
-    console.log(sortBy, categoryId, productTypeId);
-
     const applyFilters = () => {
         router.get(
             route('produk-index'),

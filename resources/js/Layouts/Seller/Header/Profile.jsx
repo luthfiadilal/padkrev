@@ -3,7 +3,7 @@ import { Link, router } from '@inertiajs/react';
 import { Button, Dropdown } from 'flowbite-react';
 // import user1 from '/src/assets/images/profile/user-1.jpg';
 
-const Profile = () => {
+const Profile = ({ user }) => {
     const handletoProfile = () => {
         router.get(route('profile.index'));
     };
@@ -23,7 +23,11 @@ const Profile = () => {
                 renderTrigger={() => (
                     <span className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full hover:bg-lightprimary hover:text-primary group-hover/menu:bg-lightprimary group-hover/menu:text-primary">
                         <img
-                            src=""
+                            src={
+                                user?.penjual?.foto_profil
+                                    ? `/storage/${user.penjual.foto_profil}`
+                                    : '/images/default-profile.png'
+                            }
                             alt="logo"
                             height="35"
                             width="35"

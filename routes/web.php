@@ -33,22 +33,13 @@ Route::middleware(['auth', 'role:seller'])->group(function() {
     Route::get('/dashboard-seller', function () {
         return Inertia::render('Seller/Dashboard');
     })->name('dashboard-seller');
-
-    // Route::get('/toko', function () {
-    //     return Inertia::render('Seller/Toko');
-    // })->name('toko');
     Route::get('/produk',[ProdukController::class, 'index'])->name('produk-index');
     Route::get('/produk/create',[ProdukController::class, 'create'])->name('produk-create');
     Route::post('/produk', [ProdukController::class, 'store'])->name('produk-store');
     Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk-update');
     Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produk-destroy');
     Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk-edit');
-    // Route::get('/kategori', function () {
-    //     return Inertia::render('Seller/Kategori');
-    // })->name('kategori');
-    // Route::get('/transaksi', function () {
-    //     return Inertia::render('Seller/Transaksi');
-    // })->name('transaksi');
+
 
 
 });

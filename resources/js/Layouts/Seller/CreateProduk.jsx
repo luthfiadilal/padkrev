@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import {
     Alert,
     Button,
@@ -18,7 +18,7 @@ export default function CreateProduk({ kategoris, tipeProduks }) {
     const [previews, setPreviews] = useState([]);
     const [galleryPreviews, setGalleryPreviews] = useState([]);
 
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, processing, errors, reset } = useForm({
         nama: '',
         kategori_id: '',
         tipe_produk_id: '',
@@ -46,15 +46,19 @@ export default function CreateProduk({ kategoris, tipeProduks }) {
                 );
             } else if (key === 'foto' && data.foto) {
                 formData.append('foto', data.foto);
+            } else if (key === 'status') {
+                // Ubah boolean ke 1 atau 0 agar validasi boolean Laravel menerima
+                formData.append('status', data.status ? '1' : '0');
             } else if (data[key] !== null && data[key] !== '') {
                 formData.append(key, data[key]);
             }
         });
-
-        post(route('produk-store'), {
-            data: formData,
+        router.post(route('produk-store'), formData, {
             preserveScroll: true,
             onSuccess: () => reset(),
+            onError: () => {
+                console.log(errors);
+            },
         });
     };
 
@@ -410,6 +414,7 @@ export default function CreateProduk({ kategoris, tipeProduks }) {
                             disabled={processing}
                             isProcessing={processing}
                             className="bg-secondary"
+                            onClick={handleSubmit}
                         >
                             <Icon
                                 icon="solar:plus-circle-line-duotone"

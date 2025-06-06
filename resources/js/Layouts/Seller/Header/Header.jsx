@@ -5,7 +5,7 @@ import MobileSidebar from '../Sidebar/MobileSidebar';
 import Profile from './Profile';
 import Notification from './notification';
 
-const Header = () => {
+const Header = ({ user }) => {
     const [isSticky, setIsSticky] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const handleClose = () => setIsOpen(false);
@@ -79,7 +79,7 @@ const Header = () => {
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <Profile />
+                            <Profile user={user} />
                         </div>
                     </div>
                 </Navbar>

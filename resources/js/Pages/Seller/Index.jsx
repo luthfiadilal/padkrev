@@ -7,6 +7,7 @@ import ProductList from '../../Layouts/Seller/ProductList';
 import SidebarLayout from '../../Layouts/Seller/Sidebar/Sidebar';
 
 export default function ProdukPage({
+    user,
     produks,
     kategoris,
     tipeProduks,
@@ -24,7 +25,7 @@ export default function ProdukPage({
 
                     <div className="page-wrapper-sub flex w-full flex-col dark:bg-darkgray">
                         {/* Top Header  */}
-                        <Header />
+                        <Header user={user} />
 
                         <div
                             className={`h-full rounded-bb bg-lightgray dark:bg-dark`}

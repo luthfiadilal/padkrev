@@ -19,6 +19,7 @@ class ProdukController extends Controller
      */
     public function index(Request $request)
     {
+        $user = Auth::user()->load('penjual');
         $query = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
         ->with(['kategori:id,kategori', 'tipeProduk:id,tipe_produk']);
 
@@ -52,6 +53,7 @@ class ProdukController extends Controller
         $productTypes = TipeProduk::all();
 
         return Inertia::render('Seller/Index', [
+            'user' => $user,
             'produks' => $produks,
             'kategoris' => $categories,
             'tipeProduks' => $productTypes,
@@ -76,7 +78,10 @@ class ProdukController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
+
     {
+
+        \Log::info('Store method triggered');
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:255',
             'kategori_id' => 'required|exists:kategoris,id',
@@ -91,13 +96,14 @@ class ProdukController extends Controller
             'ukuran' => 'nullable|string',
             'warna' => 'nullable|string',
             'stok' => 'nullable|integer|min:0',
-            'status' => 'boolean'
+            'status' => 'nullable|boolean'
         ], [
         'tipe_produk_id.required_without' => 'Pilih tipe produk atau buat baru',
         'new_tipe_produk.required_without' => 'Isi nama tipe produk baru',
     ]);
 
         if ($validator->fails()) {
+             \Log::info('VALIDASI GAGAL', $validator->errors()->toArray());
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
@@ -105,6 +111,8 @@ class ProdukController extends Controller
 
         $data = $validator->validated();
         $data['penjual_id'] = Auth::user()->penjual->id_penjual;
+
+        $data['status'] = $request->has('status');
 
 
         if ($request->has('new_tipe_produk') && !empty($request->new_tipe_produk)) {
@@ -128,6 +136,8 @@ class ProdukController extends Controller
             }
             $data['gallery'] = $galleryPaths;
         }
+
+        \Log::info('Data produk:', $data);
 
         Produk::create($data);
 

@@ -3,14 +3,21 @@ import { useState } from 'react';
 import DeleteConfirmationModal from '@/Components/DeleteConfimationModal';
 import { router } from '@inertiajs/react';
 import ProductCard from './ProductCard';
+import ProductDetailModal from './ProductDetailModal';
 
 const ProductList = ({ products }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     const handleDeleteClick = (product) => {
         setSelectedProduct(product);
         setShowDeleteModal(true);
+    };
+
+    const handleProductClick = (product) => {
+        setSelectedProduct(product);
+        setShowModal(true);
     };
 
     const handleConfirmDelete = () => {
@@ -28,6 +35,7 @@ const ProductList = ({ products }) => {
                         key={product.id}
                         product={product}
                         onDeleteClick={handleDeleteClick}
+                        onProductClick={handleProductClick}
                     />
                 ))}
             </div>
@@ -41,6 +49,12 @@ const ProductList = ({ products }) => {
                         ? `Apakah Anda yakin ingin menghapus produk "${selectedProduct.nama}"?`
                         : ''
                 }
+            />
+
+            <ProductDetailModal
+                product={selectedProduct}
+                show={showModal}
+                onClose={() => setShowModal(false)}
             />
         </>
     );
