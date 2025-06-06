@@ -1,6 +1,7 @@
 <?php
 
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ElemenController;
@@ -11,6 +12,24 @@ use App\Http\Controllers\Seller\ProdukController;
 use App\Http\Controllers\Buyer\ProdukBuyerController;
 
 Route::get('/', function () {
+    if (!Auth::check()) {
+        return Inertia::render('LandingPage/Home');
+    }
+
+    $user = Auth::user();
+
+    if ($user->isBuyer()) {
+        return redirect()->route('marketplace-index');
+    }
+
+    if ($user->isSeller()) {
+        return redirect()->route('dashboard-seller');
+    }
+
+    if ($user->isAdmin()) {
+        return redirect()->route('admin.dashboard');
+    }
+
     return Inertia::render('LandingPage/Home');
 });
 

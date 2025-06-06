@@ -19,8 +19,6 @@ export default function CartSellerGroup({
         return path;
     };
 
-    console.log('penjual:', carts[0]?.penjual);
-
     return (
         <div className="mt-4 rounded border p-4">
             <div className="mb-4 flex items-center gap-2">

@@ -64,4 +64,20 @@ class User extends Authenticatable
     {
         return $this->hasOne(Admin::class, 'id_admin');
     }
+
+    public function isBuyer()
+    {
+        return $this->role === 'buyer';
+    }
+
+    public function isSeller()
+    {
+        return $this->role === 'seller';
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
 }

@@ -1,11 +1,6 @@
 import { Button, Checkbox } from 'flowbite-react';
 
-export default function CartFooter({
-    carts,
-    selected,
-    toggleSelectAll,
-    onRemoveSelected,
-}) {
+export default function CartFooter({ carts, selected, toggleSelectAll }) {
     const selectedItems = carts.filter((item) => selected.includes(item.id));
     const total = selectedItems.reduce(
         (sum, item) => sum + Number(item.harga_total || 0),
@@ -13,7 +8,6 @@ export default function CartFooter({
     );
 
     const allSelected = carts.length > 0 && selected.length === carts.length;
-    console.log('Selected Items:', selectedItems);
 
     return (
         <div className="mt-6 flex items-center justify-between border-t px-6 py-4">
@@ -23,28 +17,24 @@ export default function CartFooter({
                     checked={allSelected}
                     onChange={toggleSelectAll}
                 />
-                <span>Pilih Semua</span>
-                <button
-                    className="text-sm text-red-500"
-                    onClick={onRemoveSelected}
+                <span className="text-sm text-textgray">Pilih Semua</span>
+            </div>
+            <div className="flex items-center justify-end gap-4">
+                <div className="flex flex-col">
+                    <p className="text-right text-sm text-textgray">
+                        Total ({selected.length} produk):
+                    </p>
+                    <p className="font-bold text-right text-xl text-red-500">
+                        Rp {Number(total).toLocaleString()}
+                    </p>
+                </div>
+                <Button
+                    className="bg-secondary px-6 py-1 hover:bg-secondaryemphasis"
+                    disabled={selected.length === 0}
                 >
-                    Hapus
-                </button>
+                    Bayar
+                </Button>
             </div>
-            <div className="text-right">
-                <p className="text-sm text-gray-600">
-                    Total ({selected.length} produk):
-                </p>
-                <p className="font-bold text-xl text-red-500">
-                    Rp {Number(total).toLocaleString()}
-                </p>
-            </div>
-            <Button
-                className="bg-secondary px-6 py-1 hover:bg-secondaryemphasis"
-                disabled={selected.length === 0}
-            >
-                Bayar
-            </Button>
         </div>
     );
 }

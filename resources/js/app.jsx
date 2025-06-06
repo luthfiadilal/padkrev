@@ -9,6 +9,8 @@ import { ThemeModeScript } from 'flowbite-react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 createInertiaApp({
     title: (title) => `${title}`,
@@ -26,6 +28,19 @@ createInertiaApp({
                 <BrowserRouter>
                     <App {...props} />
                 </BrowserRouter>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                    progressClassName={'bg-primary'}
+                />
             </>,
         );
     },

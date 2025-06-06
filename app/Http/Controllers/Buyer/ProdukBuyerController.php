@@ -16,7 +16,9 @@ class ProdukBuyerController extends Controller
     {
 
 
-        $user = Auth::user()->load('pembeli');
+        $user = Auth::user()->load(['pembeli' => function($query) {
+            $query->withCount('carts');
+        }]);
 
         $query = Produk::with([
             'penjual:id,nama_toko,whatsapp_link,no_hp,foto_profil,alamat', // Pastikan id termasuk
@@ -47,7 +49,8 @@ class ProdukBuyerController extends Controller
             'products' => $products,
             'categories' => Kategori::all(),
             'types' => TipeProduk::all(),
-            'user' => $user
+            'user' => $user,
+            'cartCount' => $user->pembeli->carts_count ?? 0
         ]);
     }
 }

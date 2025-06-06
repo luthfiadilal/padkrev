@@ -22,6 +22,14 @@ const CardProduk = ({ product, onClick }) => {
             });
             toast.success(
                 response.data.message || 'Berhasil menambahkan ke keranjang',
+                {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                },
             );
         } catch (error) {
             console.error('Gagal tambah keranjang:', error);

@@ -15,10 +15,22 @@ export default function CartPage({ carts, onUpdateQty, onRemoveItem }) {
 
     const allSelected = carts.length > 0 && selected.length === carts.length;
 
+    // Helper untuk mengelompokkan carts berdasarkan penjual_id
+    const groupByPenjual = (items) => {
+        return items.reduce((acc, item) => {
+            const key = item.penjual_id;
+            if (!acc[key]) acc[key] = [];
+            acc[key].push(item);
+            return acc;
+        }, {});
+    };
+
+    const groupedCarts = groupByPenjual(carts);
+
     return (
         <div className="mx-auto max-w-7xl p-4">
             <h2 className="font-bold mb-4 text-xl">Keranjang Belanja</h2>
-            <div className="rounded bg-white shadow">
+            <div className="rounded bg-white">
                 <div className="flex items-center border-b p-4">
                     <input
                         type="checkbox"
@@ -41,13 +53,16 @@ export default function CartPage({ carts, onUpdateQty, onRemoveItem }) {
                     onRemoveItem={onRemoveItem}
                 /> */}
 
-                <CartSellerGroup
-                    carts={carts}
-                    selected={selected}
-                    toggleSelect={toggleSelect}
-                    onUpdateQty={onUpdateQty}
-                    onRemoveItem={onRemoveItem}
-                />
+                {Object.entries(groupedCarts).map(([penjualId, cartsGroup]) => (
+                    <CartSellerGroup
+                        key={penjualId}
+                        carts={cartsGroup}
+                        selected={selected}
+                        toggleSelect={toggleSelect}
+                        onUpdateQty={onUpdateQty}
+                        onRemoveItem={onRemoveItem}
+                    />
+                ))}
 
                 <CartFooter
                     carts={carts}
@@ -55,11 +70,11 @@ export default function CartPage({ carts, onUpdateQty, onRemoveItem }) {
                     toggleSelectAll={() =>
                         setSelected(allSelected ? [] : carts.map((c) => c.id))
                     }
-                    onRemoveSelected={() => {
-                        // Misalnya kamu ingin menghapus semua selected item
-                        selected.forEach((id) => onRemoveItem(id));
-                        setSelected([]); // Reset setelah hapus
-                    }}
+                    // onRemoveSelected={() => {
+                    //     // Misalnya kamu ingin menghapus semua selected item
+                    //     selected.forEach((id) => onRemoveItem(id));
+                    //     setSelected([]); // Reset setelah hapus
+                    // }}
                 />
             </div>
         </div>

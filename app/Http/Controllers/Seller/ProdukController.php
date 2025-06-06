@@ -20,7 +20,7 @@ class ProdukController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user()->load('penjual');
-        $query = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
+        $query = Produk::where('penjual_id', Auth::user()->penjual->id)
         ->with(['kategori:id,kategori', 'tipeProduk:id,tipe_produk']);
 
         // Filter by category
@@ -110,7 +110,7 @@ class ProdukController extends Controller
         }
 
         $data = $validator->validated();
-        $data['penjual_id'] = Auth::user()->penjual->id_penjual;
+        $data['penjual_id'] = Auth::user()->penjual->id;
 
         $data['status'] = $request->has('status');
 
@@ -148,7 +148,7 @@ class ProdukController extends Controller
     public function show($id)
     {
         // Hanya bisa melihat produk miliknya sendiri
-        $produk = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
+        $produk = Produk::where('penjual_id', Auth::user()->penjual->id)
             ->with(['kategori', 'tipeProduk', 'penjual'])
             ->findOrFail($id);
 
@@ -163,7 +163,7 @@ class ProdukController extends Controller
     public function edit($id)
     {
         // Hanya bisa mengedit produk miliknya sendiri
-        $produk = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
+        $produk = Produk::where('penjual_id', Auth::user()->penjual->id)
             ->findOrFail($id);
 
         return Inertia::render('Seller/ProdukEdit', [
@@ -179,7 +179,7 @@ class ProdukController extends Controller
     public function update(Request $request, $id)
     {
         // Pastikan produk milik penjual yang login
-        $produk = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
+        $produk = Produk::where('penjual_id', Auth::user()->penjual->id)
             ->findOrFail($id);
 
         $validator = Validator::make($request->all(), [
@@ -238,7 +238,7 @@ class ProdukController extends Controller
     public function destroy($id)
     {
         // Pastikan produk milik penjual yang login
-        $produk = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
+        $produk = Produk::where('penjual_id', Auth::user()->penjual->id)
             ->findOrFail($id);
 
         // Hapus foto utama
@@ -264,7 +264,7 @@ class ProdukController extends Controller
     public function deleteGalleryImage($id, $index)
     {
         // Pastikan produk milik penjual yang login
-        $produk = Produk::where('penjual_id', Auth::user()->penjual->id_penjual)
+        $produk = Produk::where('penjual_id', Auth::user()->penjual->id)
             ->findOrFail($id);
 
         $gallery = $produk->gallery;

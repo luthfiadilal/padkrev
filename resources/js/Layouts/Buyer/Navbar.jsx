@@ -5,9 +5,10 @@ import { Navbar as FlowbiteNavbar } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import Profile from './Profile';
 
-export default function Navbar({ user }) {
+export default function Navbar({ user, cartCount = 0 }) {
     const [logo, setLogo] = useState(null);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -58,7 +59,13 @@ export default function Navbar({ user }) {
             {/* Bagian Kiri - Logo */}
             <FlowbiteNavbar.Brand href="/" className="flex-1 md:flex-none">
                 <div className="h-[50px] w-[150px]">
-                    {logo && (
+                    {loading ? (
+                        <div className="flex h-full w-full items-center justify-center">
+                            <span className="text-sm text-gray-400">
+                                Loading...
+                            </span>
+                        </div>
+                    ) : logo ? (
                         <img
                             className="h-full w-full object-cover"
                             src={logo.image_url}
@@ -66,6 +73,12 @@ export default function Navbar({ user }) {
                             onError={(e) => {
                                 e.target.src = '/fallback-logo.png';
                             }}
+                        />
+                    ) : (
+                        <img
+                            className="h-full w-full object-cover"
+                            src="/fallback-logo.png"
+                            alt="Fallback"
                         />
                     )}
                 </div>
@@ -113,13 +126,21 @@ export default function Navbar({ user }) {
 
             {/* Bagian Kanan - Ikon */}
             <div className="flex items-center gap-4">
-                <button className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <button
+                    className="relative rounded-full p-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    onClick={handleToCart}
+                >
+                    {/* ICON KERANJANG */}
                     <Icon
-                        onClick={handleToCart}
                         icon="solar:cart-3-outline"
                         width={26}
                         className={`dark:text-gray-300 ${isScrolled ? 'text-primary' : 'text-textgray'}`}
                     />
+                    {cartCount > 0 && (
+                        <span className="font-semibold absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] text-white">
+                            {cartCount}
+                        </span>
+                    )}
                 </button>
                 <Profile user={user} />
             </div>

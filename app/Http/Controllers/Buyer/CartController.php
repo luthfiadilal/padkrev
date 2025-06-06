@@ -11,12 +11,16 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+
      /**
      * Tampilkan semua item di keranjang pembeli.
      */
     public function index()
     {
         $pembeli = Auth::user()->pembeli;
+        $user = Auth::user()->load(['pembeli' => function($query) {
+            $query->withCount('carts');
+        }]);
 
         if (!$pembeli) {
             return response()->json(['message' => 'Pembeli tidak ditemukan'], 404);
@@ -25,6 +29,10 @@ class CartController extends Controller
         $carts = $pembeli->carts()->with(['produk', 'penjual'])->get();
 
         return Inertia::render('Buyer/Cart', [
+            'user' => Auth::user()->load(['pembeli' => function($query) {
+                $query->withCount('carts');
+            }]),
+            'cartCount' => $user->pembeli->carts_count ?? 0,
             'carts' => $carts
         ]);
     }
@@ -76,7 +84,8 @@ class CartController extends Controller
             'harga_total'  => $totalHarga,
         ]);
 
-        return response()->json(['message' => 'Produk ditambahkan ke keranjang', 'cart' => $cart]);
+        //
+        return redirect()->route('marketplace-index')->with('success', 'Produk berhasil ditambahkan ke keranjang');
     }
 
     /**
@@ -90,13 +99,13 @@ class CartController extends Controller
 
         $cart = Cart::findOrFail($id);
 
-        $this->authorize('update', $cart); // Optional jika pakai policy
+
 
         $cart->quantity = $request->quantity;
         $cart->harga_total = Cart::calculateTotal($cart->harga_satuan, $cart->quantity);
         $cart->save();
 
-        return response()->json(['message' => 'Keranjang diperbarui', 'cart' => $cart]);
+        return redirect()->route('cart.index')->with('success', 'Keranjang berhasil diperbarui');
     }
 
     /**
@@ -104,12 +113,22 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        $cart = Cart::findOrFail($id);
+        $cart = Cart::where('pembeli_id', Auth::user()->pembeli->id)->findOrFail($id);
 
-        $this->authorize('delete', $cart); // Optional jika pakai policy
+        // $this->authorize('delete', $cart); // Optional jika pakai policy
 
         $cart->delete();
 
-        return response()->json(['message' => 'Item dihapus dari keranjang']);
+        return redirect()->route('cart.index')->with('success', 'Produk berhasil dihapus dari keranjang');
+    }
+
+    public function count(Request $request)
+    {
+        $user = Auth::user();
+        $count = $user->pembeli->carts()->count();
+
+        return response()->json([
+            'count' => $count
+        ]);
     }
 }

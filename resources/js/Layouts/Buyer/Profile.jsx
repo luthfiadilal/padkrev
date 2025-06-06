@@ -4,7 +4,6 @@ import { Button, Dropdown } from 'flowbite-react';
 // import user1 from '/src/assets/images/profile/user-1.jpg';
 
 const Profile = ({ user }) => {
-    console.log(user);
     const handletoProfile = () => {
         router.get(route('profile.index'));
     };
@@ -15,6 +14,7 @@ const Profile = ({ user }) => {
     const handleLogout = () => {
         router.post(route('logout'));
     };
+
     return (
         <div className="group/menu relative">
             <Dropdown
@@ -32,7 +32,7 @@ const Profile = ({ user }) => {
                             alt="logo"
                             height="35"
                             width="35"
-                            className="rounded-full"
+                            className="rounded-full object-cover"
                         />
                     </span>
                 )}

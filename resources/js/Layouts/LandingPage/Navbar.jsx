@@ -52,7 +52,7 @@ export default function Navbar() {
     };
 
     const handleLogin = () => {
-        router.get('/dashboard-seller');
+        router.get(route('login'));
     };
 
     const handleRegister = () => {
