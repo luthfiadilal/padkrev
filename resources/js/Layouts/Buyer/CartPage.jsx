@@ -1,4 +1,6 @@
+import { router } from '@inertiajs/react';
 import React from 'react';
+import { toast } from 'react-toastify';
 import CartFooter from './CartFooter';
 import CartSellerGroup from './CartSellerGroup';
 
@@ -26,6 +28,38 @@ export default function CartPage({ carts, onUpdateQty, onRemoveItem }) {
     };
 
     const groupedCarts = groupByPenjual(carts);
+
+    const handleCheckout = (selectedIds) => {
+        if (selectedIds.length === 0) {
+            alert('Pilih produk yang ingin dibayar!');
+            return;
+        }
+
+        router.post(
+            route('checkout'), // Pastikan route checkout sudah ditambahkan
+            { cart_ids: selectedIds },
+            {
+                onStart: () => console.log('Processing...'),
+                onSuccess: () => {
+                    toast.success(
+                        'Berhasil Checkout, silakan lakukan pembayaran',
+                        {
+                            position: 'top-right',
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                        },
+                    );
+                },
+                onError: (errors) => {
+                    console.error(errors);
+                    alert('Gagal checkout!');
+                },
+            },
+        );
+    };
 
     return (
         <div className="mx-auto max-w-7xl p-4">
@@ -70,6 +104,7 @@ export default function CartPage({ carts, onUpdateQty, onRemoveItem }) {
                     toggleSelectAll={() =>
                         setSelected(allSelected ? [] : carts.map((c) => c.id))
                     }
+                    onCheckout={handleCheckout}
                     // onRemoveSelected={() => {
                     //     // Misalnya kamu ingin menghapus semua selected item
                     //     selected.forEach((id) => onRemoveItem(id));

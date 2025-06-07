@@ -9,6 +9,8 @@ const CardProduk = ({ product, onClick }) => {
         return `/storage/produk/foto/${filename}`;
     };
 
+    console.log(product);
+
     const handleClick = (e) => {
         e.stopPropagation(); // Mencegah event bubbling
         onClick?.(); // Panggil onClick prop jika ada
@@ -31,8 +33,9 @@ const CardProduk = ({ product, onClick }) => {
                     draggable: true,
                 },
             );
+
+            console.log(response.data);
         } catch (error) {
-            console.error('Gagal tambah keranjang:', error);
             toast.error(
                 error.response?.data?.message ||
                     'Terjadi kesalahan saat menambahkan ke keranjang',
@@ -73,7 +76,7 @@ const CardProduk = ({ product, onClick }) => {
     };
 
     return (
-        <div className="flex h-[300px] w-full flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-all duration-300 hover:shadow">
+        <div className="flex h-[350px] w-full flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-all duration-300 hover:shadow">
             {/* Gambar Produk */}
             <div className="relative h-[50%]" onClick={handleClick}>
                 <img
@@ -127,10 +130,15 @@ const CardProduk = ({ product, onClick }) => {
                         </span>
                     )}
                 </div>
-                <div className="flex flex-wrap gap-x-2 gap-y-1 text-xs text-gray-600">
+                <div className="flex flex-wrap gap-x-2 gap-y-1 text-xs font-manropeRegular text-gray-600">
                     {product.ukuran && <span>{product.ukuran}</span>}
-                    <span>Stok: {product.stok}</span>
+                    <span>
+                        Stok: {product.stok ? product.stok : 'tersedia'}
+                    </span>
                 </div>
+                <p className="mt-2 line-clamp-2 font-manropeMedium">
+                    {product.penjual?.nama_toko}
+                </p>
             </div>
 
             {/* Tombol Aksi */}

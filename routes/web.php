@@ -7,6 +7,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\ElemenController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\Buyer\CartController;
 use App\Http\Controllers\Seller\ProdukController;
 use App\Http\Controllers\Buyer\ProdukBuyerController;
@@ -41,6 +42,9 @@ Route::middleware(['auth', 'role:buyer'])->group(function() {
     // Route::post('/cart', [CartController::class, 'store'])->name('cart.store');      // Tambah ke keranjang
     Route::put('/cart/{id}', [CartController::class, 'update'])->name('cart.update'); // Update qty
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy'); // Hapus item
+
+    Route::post('/checkout', [TransaksiController::class, 'checkout'])->name('checkout');
+    Route::get('/history', [TransaksiController::class, 'history'])->name('history.index');
 });
 
 Route::middleware(['auth', 'role:buyer'])->prefix('buyer')->group(function () {

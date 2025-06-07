@@ -1,6 +1,11 @@
 import { Button, Checkbox } from 'flowbite-react';
 
-export default function CartFooter({ carts, selected, toggleSelectAll }) {
+export default function CartFooter({
+    carts,
+    selected,
+    toggleSelectAll,
+    onCheckout,
+}) {
     const selectedItems = carts.filter((item) => selected.includes(item.id));
     const total = selectedItems.reduce(
         (sum, item) => sum + Number(item.harga_total || 0),
@@ -31,6 +36,7 @@ export default function CartFooter({ carts, selected, toggleSelectAll }) {
                 <Button
                     className="bg-secondary px-6 py-1 hover:bg-secondaryemphasis"
                     disabled={selected.length === 0}
+                    onClick={() => onCheckout(selected)}
                 >
                     Bayar
                 </Button>

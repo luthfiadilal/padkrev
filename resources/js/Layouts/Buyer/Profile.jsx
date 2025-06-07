@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Link, router } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { Button, Dropdown } from 'flowbite-react';
 // import user1 from '/src/assets/images/profile/user-1.jpg';
 
@@ -13,6 +13,10 @@ const Profile = ({ user }) => {
 
     const handleLogout = () => {
         router.post(route('logout'));
+    };
+
+    const handleToHistory = () => {
+        router.get(route('history.index'));
     };
 
     return (
@@ -52,8 +56,7 @@ const Profile = ({ user }) => {
                     My Account
                 </Dropdown.Item>
                 <Dropdown.Item
-                    as={Link}
-                    to="#"
+                    onClick={handleToHistory}
                     className="bg-hover group/link flex w-full items-center gap-3 px-3 py-3 text-dark"
                 >
                     <Icon icon="solar:checklist-linear" height={20} />

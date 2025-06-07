@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Produk;
 use App\Models\Pembeli;
 use App\Models\Penjual;
+use App\Models\Transaksi;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -49,6 +50,12 @@ class Cart extends Model
     {
         return $this->belongsTo(Penjual::class, 'penjual_id');
     }
+
+    public function transaksis()
+    {
+        return $this->belongsToMany(Transaksi::class, 'cart_transaksi');
+    }
+
 
     /**
      * Hitung harga total berdasarkan quantity
