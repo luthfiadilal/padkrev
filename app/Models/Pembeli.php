@@ -28,4 +28,10 @@ class Pembeli extends Model
     {
         return $this->hasMany(Cart::class, 'pembeli_id');
     }
+
+    // App/Models/Pembeli.php
+    public function getNamaAttribute()
+    {
+        return $this->user->name;
+    }
 }

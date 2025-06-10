@@ -42,7 +42,7 @@ const SidebarContent = [
                 icon: 'solar:bag-5-linear',
                 id: uniqueId(),
                 url: '/transaksi',
-                // route: 'transaksi',
+                route: 'historypenjual.index',
             },
         ],
     },

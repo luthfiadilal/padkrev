@@ -27,7 +27,7 @@ class Transaksi extends Model
     // Relasi ke Pembeli
     public function pembeli(): BelongsTo
     {
-        return $this->belongsTo(Pembeli::class);
+        return $this->belongsTo(Pembeli::class, 'pembeli_id');
     }
 
     // Relasi ke Cart (banyak cart dalam satu transaksi)

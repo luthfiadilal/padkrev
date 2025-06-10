@@ -1,7 +1,10 @@
 import { useState } from 'react';
-import PaymentCardGroup from './PaymentCardGroup';
-
-export default function PaymentTabs({ belumBayar, sudahBayar, dibatalkan }) {
+import PaymentCardGroupSeller from './PaymentCardGroupSeller';
+export default function PaymentTabsSeller({
+    belumBayar,
+    sudahBayar,
+    dibatalkan,
+}) {
     const [activeTab, setActiveTab] = useState('belumBayar');
 
     const tabStyle =
@@ -49,7 +52,7 @@ export default function PaymentTabs({ belumBayar, sudahBayar, dibatalkan }) {
                         </p>
                     ) : (
                         belumBayar.map((trx) => (
-                            <PaymentCardGroup
+                            <PaymentCardGroupSeller
                                 key={trx.id}
                                 transaksi={trx}
                                 status="belumBayar"
@@ -64,7 +67,7 @@ export default function PaymentTabs({ belumBayar, sudahBayar, dibatalkan }) {
                         </p>
                     ) : (
                         sudahBayar.map((trx) => (
-                            <PaymentCardGroup
+                            <PaymentCardGroupSeller
                                 key={trx.id}
                                 transaksi={trx}
                                 status="sudahBayar"
@@ -78,7 +81,7 @@ export default function PaymentTabs({ belumBayar, sudahBayar, dibatalkan }) {
                         </p>
                     ) : (
                         dibatalkan.map((trx) => (
-                            <PaymentCardGroup
+                            <PaymentCardGroupSeller
                                 key={trx.id}
                                 transaksi={trx}
                                 status="dibatalkan"

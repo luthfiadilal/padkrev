@@ -44,7 +44,9 @@ Route::middleware(['auth', 'role:buyer'])->group(function() {
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy'); // Hapus item
 
     Route::post('/checkout', [TransaksiController::class, 'checkout'])->name('checkout');
-    Route::get('/history', [TransaksiController::class, 'history'])->name('history.index');
+    Route::get('/history-buyer', [TransaksiController::class, 'history'])->name('history-buyer.index');
+    Route::post('/transaksi/{transaksi}/cancel', [TransaksiController::class, 'toCancel'])
+    ->name('transaksi.cancel');
 });
 
 Route::middleware(['auth', 'role:buyer'])->prefix('buyer')->group(function () {
@@ -63,7 +65,8 @@ Route::middleware(['auth', 'role:seller'])->group(function() {
     Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produk-destroy');
     Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk-edit');
 
-
+    Route::get('/history', [TransaksiController::class, 'historyWithPenjual'])->name('historypenjual.index');
+    Route::post('transaksi/{transaksi}/update-status', [TransaksiController::class, 'updateStatus'])->name('transaksi.update-status');
 
 });
 

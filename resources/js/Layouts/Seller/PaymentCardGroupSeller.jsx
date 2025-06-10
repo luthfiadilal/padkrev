@@ -1,6 +1,6 @@
-import PaymentCard from './PaymentCard';
+import PaymentCard from './PaymentCardSeller';
 
-export default function PaymentCardGroup({ transaksi, status }) {
+export default function PaymentCardGroupSeller({ transaksi, status }) {
     const toko = transaksi.items[0]?.penjual;
 
     const getImageProfile = (path) => {
@@ -34,7 +34,12 @@ export default function PaymentCardGroup({ transaksi, status }) {
             </div>
             <div className="space-y-4">
                 {transaksi.items.map((item) => (
-                    <PaymentCard key={item.id} item={item} status={status} />
+                    <PaymentCard
+                        key={item.id}
+                        item={item}
+                        status={status}
+                        transaksi={transaksi}
+                    />
                 ))}
             </div>
         </div>

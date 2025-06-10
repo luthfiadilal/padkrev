@@ -16,7 +16,7 @@ const Profile = ({ user }) => {
     };
 
     const handleToHistory = () => {
-        router.get(route('history.index'));
+        router.get(route('history-buyer.index'));
     };
 
     return (

@@ -9,8 +9,6 @@ const CardProduk = ({ product, onClick }) => {
         return `/storage/produk/foto/${filename}`;
     };
 
-    console.log(product);
-
     const handleClick = (e) => {
         e.stopPropagation(); // Mencegah event bubbling
         onClick?.(); // Panggil onClick prop jika ada
