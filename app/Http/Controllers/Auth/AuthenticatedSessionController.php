@@ -59,8 +59,8 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
          logger()->info('Redirect user after login', ['user_id' => $user->id, 'role' => $user->role]);
         return match ($user->role) {
-            'admin' => route('dashboard-admin'),
-            'seller' => route('dashboard-seller'),
+            'admin' => route('admin.dashboard'),
+            'seller' => route('seller.dashboard'),
             'buyer' => route('marketplace-index'),
             default => route('marketplace'), // Fallback untuk role tidak terdaftar
         };

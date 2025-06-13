@@ -9,7 +9,7 @@ const SidebarContent = [
                 icon: 'solar:widget-add-line-duotone',
                 id: uniqueId(),
                 url: '/dashboard-seller',
-                route: 'seller.dashboard',
+                route: 'dashboard-seller',
             },
             {
                 name: 'Toko',

@@ -10,6 +10,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\Buyer\CartController;
 use App\Http\Controllers\Seller\ProdukController;
+use App\Http\Controllers\Seller\DashboardController;
 use App\Http\Controllers\Buyer\ProdukBuyerController;
 
 Route::get('/', function () {
@@ -24,7 +25,7 @@ Route::get('/', function () {
     }
 
     if ($user->isSeller()) {
-        return redirect()->route('dashboard-seller');
+        return redirect()->route('seller.dashboard');
     }
 
     if ($user->isAdmin()) {
@@ -32,6 +33,12 @@ Route::get('/', function () {
     }
 
     return Inertia::render('LandingPage/Home');
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return Inertia::render('Admin/DashboardAdmin');
+    })->name('admin.dashboard');
 });
 
 Route::middleware(['auth', 'role:buyer'])->group(function() {
@@ -55,9 +62,7 @@ Route::middleware(['auth', 'role:buyer'])->prefix('buyer')->group(function () {
 
 
 Route::middleware(['auth', 'role:seller'])->group(function() {
-    Route::get('/dashboard-seller', function () {
-        return Inertia::render('Seller/Dashboard');
-    })->name('dashboard-seller');
+    Route::get('/dashboard-seller', DashboardController::class, '--invoke')->name('seller.dashboard');
     Route::get('/produk',[ProdukController::class, 'index'])->name('produk-index');
     Route::get('/produk/create',[ProdukController::class, 'create'])->name('produk-create');
     Route::post('/produk', [ProdukController::class, 'store'])->name('produk-store');
