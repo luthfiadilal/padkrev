@@ -16,7 +16,7 @@ const SidebarContent = [
                 icon: 'solar:shop-linear',
                 id: uniqueId(),
                 url: '/toko',
-                // route: 'toko',
+                route: 'seller.toko',
             },
         ],
     },

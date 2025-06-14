@@ -1,9 +1,12 @@
 <?php
 
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\TokoController;
 use App\Http\Controllers\ElemenController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KategoriController;
@@ -12,8 +15,6 @@ use App\Http\Controllers\Buyer\CartController;
 use App\Http\Controllers\Seller\ProdukController;
 use App\Http\Controllers\Seller\DashboardController;
 use App\Http\Controllers\Buyer\ProdukBuyerController;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
     if (!Auth::check()) {
@@ -74,7 +75,7 @@ Route::middleware(['auth', 'role:seller'])->group(function() {
 
     Route::get('/history', [TransaksiController::class, 'historyWithPenjual'])->name('historypenjual.index');
     Route::post('transaksi/{transaksi}/update-status', [TransaksiController::class, 'updateStatus'])->name('transaksi.update-status');
-
+    Route::get('/seller/toko', [TokoController::class, 'produkPerKategori'])->name('seller.toko');
 
     Route::post('/export-transaksi', [DashboardController::class, 'export'])->name('transaksi.export');
 

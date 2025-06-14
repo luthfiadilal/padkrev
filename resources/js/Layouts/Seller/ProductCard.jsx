@@ -2,7 +2,12 @@ import { Icon } from '@iconify/react';
 import { router } from '@inertiajs/react';
 import { Badge, Button } from 'flowbite-react';
 
-const ProductCard = ({ product, onDeleteClick, onProductClick }) => {
+const ProductCard = ({
+    product,
+    onDeleteClick,
+    onProductClick,
+    isTerlaris = false,
+}) => {
     const getImageUrl = (path) => {
         const filename = path.split('/').pop();
         return `/storage/produk/foto/${filename}`;
@@ -26,6 +31,18 @@ const ProductCard = ({ product, onDeleteClick, onProductClick }) => {
                     }}
                     onClick={handleClick}
                 />
+
+                {isTerlaris && (
+                    <div className="font-semibold absolute left-2 top-2 flex items-center gap-1 rounded-full bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 px-3 py-1 text-xs text-white shadow-md ring-2 ring-white/80">
+                        <Icon
+                            icon="solar:fire-bold-duotone"
+                            width={24}
+                            height={24}
+                            className="animate-pulse text-red-300"
+                        />
+                        <p className="animate-pulse text-sm">Terlaris</p>
+                    </div>
+                )}
                 {product.harga_diskon && (
                     <Badge
                         color="red"
