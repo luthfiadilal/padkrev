@@ -12,6 +12,8 @@ use App\Http\Controllers\Buyer\CartController;
 use App\Http\Controllers\Seller\ProdukController;
 use App\Http\Controllers\Seller\DashboardController;
 use App\Http\Controllers\Buyer\ProdukBuyerController;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
     if (!Auth::check()) {
@@ -72,6 +74,29 @@ Route::middleware(['auth', 'role:seller'])->group(function() {
 
     Route::get('/history', [TransaksiController::class, 'historyWithPenjual'])->name('historypenjual.index');
     Route::post('transaksi/{transaksi}/update-status', [TransaksiController::class, 'updateStatus'])->name('transaksi.update-status');
+
+
+    Route::post('/export-transaksi', [DashboardController::class, 'export'])->name('transaksi.export');
+
+    // untuk ambil file (opsional)
+    Route::get('/download-export/{file}', function ($file) {
+        return response()->download(storage_path("app/public/exports/{$file}"));
+    })->name('transaksi.download');
+
+    Route::get('/check-export-file/{filename}', function ($filename) {
+        $path = storage_path("app/public/exports/{$filename}");
+
+        $exists = File::exists($path);
+
+        // ✅ Tambahkan log
+        Log::info('CHECK EXPORT FILE', [
+            'filename' => $filename,
+            'path_checked' => $path,
+            'file_exists' => $exists,
+        ]);
+
+        return response()->json(['exists' => $exists]);
+    });
 
 });
 

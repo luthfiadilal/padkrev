@@ -7,7 +7,7 @@ import {
     Tooltip,
 } from 'recharts';
 
-const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#f87171', '#34d399'];
+const COLORS = ['#3d64af', '#f4a261', '#ffc658', '#f87171', '#34d399'];
 
 export default function KategoriDibeliChart({ data }) {
     return (
