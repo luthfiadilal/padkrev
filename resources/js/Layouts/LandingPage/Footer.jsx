@@ -1,3 +1,4 @@
+import { router } from '@inertiajs/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -105,14 +106,14 @@ export default function Footer() {
                     </div>
 
                     <a
-                        href="#"
-                        className="text-12 font-manropeMedium text-textgray hover:underline md:text-16"
+                        onClick={() => router.get(route('login'))}
+                        className="cursor-pointer text-12 font-manropeMedium text-textgray hover:underline md:text-16"
                     >
                         Login
                     </a>
                     <a
-                        href="#"
-                        className="text-12 font-manropeMedium text-textgray hover:underline md:text-16"
+                        onClick={() => router.get(route('register'))}
+                        className="cursor-pointer text-12 font-manropeMedium text-textgray hover:underline md:text-16"
                     >
                         Register
                     </a>

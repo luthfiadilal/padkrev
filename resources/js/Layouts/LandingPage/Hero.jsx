@@ -47,11 +47,14 @@ export default function Hero() {
                     <span className="text-secondary">Kreativitas Lokal</span>,
                     Mulai dari Sini.
                 </h2>
-                <p className="text-14 -mt-1 w-[70%] font-manropeSemiBold leading-[1.2] text-textgray md:w-full md:text-24 md:leading-[1.1]">
+                <p className="-mt-1 w-[70%] text-14 font-manropeSemiBold leading-[1.2] text-textgray md:w-full md:text-24 md:leading-[1.1]">
                     Temukan produk dan jasa terbaik dari UMKM Padalarang
                 </p>
                 <div className="flex w-full justify-center gap-2 md:justify-start md:gap-3">
-                    <h5 className="text-14 font-manropeSemiBold text-secondary md:text-18">
+                    <h5
+                        onClick={() => router.get(route('marketplace-index'))}
+                        className="cursor-pointer text-14 font-manropeSemiBold text-secondary md:text-18"
+                    >
                         Explore Now
                     </h5>
                     {arrow && (
@@ -92,7 +95,7 @@ export default function Hero() {
                     transition={{ delay: 0.8, duration: 0.6, ease: 'easeOut' }}
                     className="absolute -bottom-2 left-1/2 flex w-[90%] -translate-x-1/2 transform items-center justify-center rounded-lg bg-[#717171]/[0.35] px-3 py-2 backdrop-blur-md md:bottom-7 md:left-[100px] md:w-[400px] md:translate-x-0 md:px-5 md:py-4"
                 >
-                    <h4 className="text-14 text-center font-manropeSemiBold text-white md:text-20">
+                    <h4 className="text-center text-14 font-manropeSemiBold text-white md:text-20">
                         Lebih dari 100+ pengusaha dengan berbagai inovasinya
                     </h4>
                 </motion.div>

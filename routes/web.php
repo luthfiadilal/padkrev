@@ -13,6 +13,8 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\Buyer\CartController;
 use App\Http\Controllers\Seller\ProdukController;
+
+use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Seller\DashboardController;
 use App\Http\Controllers\Buyer\ProdukBuyerController;
 
@@ -39,9 +41,12 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return Inertia::render('Admin/DashboardAdmin');
-    })->name('admin.dashboard');
+    Route::get('/dashboard-admin', [DashboardAdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/users', [DashboardAdminController::class, 'userList'])->name('admin.users.index');
+    Route::get('/users/{id}/edit', [DashboardAdminController::class, 'update'])->name('admin.users.update');
+    Route::delete('/users/{id}', [DashboardAdminController::class, 'destroy'])->name('admin.users.destroy');
+    Route::get('/produkpenjual', [DashboardAdminController::class, 'semuaProdukPerKategori'])->name('admin.toko.produk');
+    Route::get('/all-transaksi', [DashboardAdminController::class, 'allTransaksi'])->name('admin.transaksi.index');
 });
 
 Route::middleware(['auth', 'role:buyer'])->group(function() {
@@ -57,6 +62,17 @@ Route::middleware(['auth', 'role:buyer'])->group(function() {
     Route::get('/history-buyer', [TransaksiController::class, 'history'])->name('history-buyer.index');
     Route::post('/transaksi/{transaksi}/cancel', [TransaksiController::class, 'toCancel'])
     ->name('transaksi.cancel');
+
+    Route::get('/developer-hub', function () {
+        $user = Auth::user()->load(['pembeli' => function($query) {
+            $query->withCount('carts');
+        }]);
+
+        return Inertia::render('Buyer/DeveloperHub', [
+            'user' => $user,
+            'cartCount' => $user->pembeli->carts_count ?? 0
+        ]);
+    })->name('developer-hub');
 });
 
 Route::middleware(['auth', 'role:buyer'])->prefix('buyer')->group(function () {

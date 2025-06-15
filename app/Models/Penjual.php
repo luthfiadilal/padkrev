@@ -21,6 +21,7 @@ class Penjual extends Model
         'foto_profil',
     ];
 
+
     public function user()
     {
         return $this->belongsTo(User::class, 'id_penjual');

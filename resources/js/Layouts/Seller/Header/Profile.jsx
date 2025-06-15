@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Link, router } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { Button, Dropdown } from 'flowbite-react';
 // import user1 from '/src/assets/images/profile/user-1.jpg';
 
@@ -50,19 +50,11 @@ const Profile = ({ user }) => {
                     <Icon icon="solar:letter-linear" height={20} />
                     My Account
                 </Dropdown.Item>
-                <Dropdown.Item
-                    as={Link}
-                    to="#"
-                    className="bg-hover group/link flex w-full items-center gap-3 px-3 py-3 text-dark"
-                >
-                    <Icon icon="solar:checklist-linear" height={20} />
-                    My Task
-                </Dropdown.Item>
                 <div className="p-3 pt-0">
                     <Button
                         size={'sm'}
                         onClick={handleLogout}
-                        className="mt-2 w-full border border-primary bg-transparent text-primary outline-none hover:bg-lightprimary focus:outline-none"
+                        className="mt-2 w-full border border-primary bg-transparent p-2 text-primary outline-none hover:bg-lightprimary focus:outline-none"
                     >
                         Logout
                     </Button>

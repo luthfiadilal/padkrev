@@ -1,3 +1,4 @@
+import { router } from '@inertiajs/react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -55,7 +56,7 @@ export default function Categories() {
                 <h2 className="text-22 font-manropeExtraBold text-primary md:text-30">
                     Categories
                 </h2>
-                <p className="text-14 w-[70%] font-manropeSemiBold text-textgray">
+                <p className="w-[70%] text-14 font-manropeSemiBold text-textgray">
                     Temukan berbagai produk dan layanan unggulan dari pelaku
                     UMKM Padalarang yang telah kami kurasi.
                 </p>
@@ -88,7 +89,12 @@ export default function Categories() {
                         dibuat dengan resep turun-temurun...
                     </p>
                     <div className="flex items-center gap-2">
-                        <h6 className="text-14 font-manropeSemiBold text-secondary md:text-16">
+                        <h6
+                            onClick={() =>
+                                router.get(route('marketplace-index'))
+                            }
+                            className="cursor-pointer text-14 font-manropeSemiBold text-secondary md:text-16"
+                        >
                             Explore Now
                         </h6>
                         {arrow && <img src={arrow.image_url} alt="" />}
@@ -116,7 +122,12 @@ export default function Categories() {
                         handmade dengan desain unik...
                     </p>
                     <div className="flex items-center gap-2">
-                        <h6 className="text-14 font-manropeSemiBold text-secondary md:text-16">
+                        <h6
+                            onClick={() =>
+                                router.get(route('marketplace-index'))
+                            }
+                            className="cursor-pointer text-14 font-manropeSemiBold text-secondary md:text-16"
+                        >
                             Explore Now
                         </h6>
                         {arrow && <img src={arrow.image_url} alt="" />}
@@ -144,7 +155,12 @@ export default function Categories() {
                         jasa kreatif lainnya...
                     </p>
                     <div className="flex items-center gap-2">
-                        <h6 className="text-14 font-manropeSemiBold text-secondary md:text-16">
+                        <h6
+                            onClick={() =>
+                                router.get(route('marketplace-index'))
+                            }
+                            className="cursor-pointer text-14 font-manropeSemiBold text-secondary md:text-16"
+                        >
                             Explore Now
                         </h6>
                         {arrow && <img src={arrow.image_url} alt="" />}
@@ -172,7 +188,12 @@ export default function Categories() {
                         lengkap dan harga terjangkau...
                     </p>
                     <div className="flex items-center gap-2">
-                        <h6 className="text-14 font-manropeSemiBold text-secondary md:text-16">
+                        <h6
+                            onClick={() =>
+                                router.get(route('marketplace-index'))
+                            }
+                            className="cursor-pointer text-14 font-manropeSemiBold text-secondary md:text-16"
+                        >
                             Explore Now
                         </h6>
                         {arrow && <img src={arrow.image_url} alt="" />}

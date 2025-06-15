@@ -81,26 +81,32 @@ export default function Navbar() {
                     <ul className="flex flex-1 justify-center gap-8">
                         <li>
                             <a
-                                className="font-manropeMedium text-textgray transition hover:text-primary"
-                                href="#"
+                                className="cursor-pointer font-manropeMedium text-textgray transition hover:text-primary"
+                                onClick={() =>
+                                    router.get(route('marketplace-index'))
+                                }
                             >
                                 Marketplace
                             </a>
                         </li>
                         <li>
                             <a
-                                className="font-manropeMedium text-textgray transition hover:text-primary"
-                                href="#"
+                                className="cursor-pointer font-manropeMedium text-textgray transition hover:text-primary"
+                                onClick={() =>
+                                    router.get(route('marketplace-index'))
+                                }
                             >
                                 Products
                             </a>
                         </li>
                         <li>
                             <a
-                                className="font-manropeMedium text-textgray transition hover:text-primary"
-                                href="#"
+                                className="cursor-pointer font-manropeMedium text-textgray transition hover:text-primary"
+                                onClick={() =>
+                                    router.get(route('marketplace-index'))
+                                }
                             >
-                                About
+                                Developer Hub
                             </a>
                         </li>
                     </ul>

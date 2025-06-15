@@ -61,6 +61,19 @@ export default function MonthlySalesChart({ data }) {
                         labelStyle={{ color: '#a1a1aa' }}
                     />
                     <Legend verticalAlign="top" height={36} />
+
+                    {/* Background Line - lebih besar dan transparan */}
+                    <Line
+                        type="monotone"
+                        dataKey="jumlah"
+                        stroke="#3b82f6"
+                        strokeWidth={8}
+                        strokeOpacity={0.15}
+                        dot={false}
+                        isAnimationActive={false}
+                    />
+
+                    {/* Garis utama */}
                     <Line
                         type="monotone"
                         dataKey="jumlah"

@@ -42,7 +42,7 @@ export default function About() {
         fetchImages();
     }, []);
     return (
-        <div className="relative mt-5 w-full">
+        <div id="about" className="relative mt-5 w-full">
             {/* Background SVG, tidak terpengaruh padding */}
             {elemen && (
                 <img

@@ -3,12 +3,12 @@ import ScrollToTop from '@/Components/shared/ScrollToTop';
 import KategoriDibeliChart from '@/Layouts/Seller/KategoriDibeliChart';
 import KategoriStatList from '@/Layouts/Seller/KategoriStatList';
 import MonthlySalesChart from '@/Layouts/Seller/MonthlySalesChart';
+import SidebarLayout from '@/Layouts/Seller/Sidebar/Sidebar';
 import StatCard from '@/Layouts/Seller/StatCard';
 import { usePage } from '@inertiajs/react';
 import axios from 'axios';
 import { useState } from 'react';
 import Header from '../../Layouts/Seller/Header/Header';
-import SidebarLayout from '../../Layouts/Seller/Sidebar/Sidebar';
 
 export default function Dashboard() {
     const {
@@ -152,7 +152,7 @@ export default function Dashboard() {
                                                         Pilih Bulan
                                                     </label>
                                                     <select
-                                                        className="rounded border p-2 text-13 dark:bg-gray-900 dark:text-white md:text-16"
+                                                        className="rounded border p-2 text-13 text-textgray dark:bg-gray-900 dark:text-white md:text-16"
                                                         value={bulan}
                                                         onChange={(e) =>
                                                             setBulan(
@@ -183,7 +183,7 @@ export default function Dashboard() {
                                                         Pilih Tahun
                                                     </label>
                                                     <select
-                                                        className="rounded border p-2 text-13 dark:bg-gray-900 dark:text-white md:text-16"
+                                                        className="rounded border p-2 text-13 text-textgray dark:bg-gray-900 dark:text-white md:text-16"
                                                         value={tahun}
                                                         onChange={(e) =>
                                                             setTahun(
@@ -222,7 +222,7 @@ export default function Dashboard() {
                                                         Pilih Status
                                                     </label>
                                                     <select
-                                                        className="rounded border p-2 text-13 dark:bg-gray-900 dark:text-white md:text-16"
+                                                        className="rounded border p-2 text-13 text-textgray dark:bg-gray-900 dark:text-white md:text-16"
                                                         value={status}
                                                         onChange={(e) =>
                                                             setStatus(

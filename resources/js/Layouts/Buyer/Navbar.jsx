@@ -102,22 +102,15 @@ export default function Navbar({ user, cartCount = 0 }) {
                         Marketplace
                     </a>
                     <a
-                        href="/products"
-                        className={`font-manropeMedium hover:text-primary dark:text-gray-300 dark:hover:text-white ${
-                            window.location.pathname === '/products'
-                                ? 'font-medium'
-                                : ''
-                        }`}
-                    >
-                        Products
-                    </a>
-                    <a
-                        href="/developer-hub"
-                        className={`font-manropeMedium hover:text-primary dark:text-gray-300 dark:hover:text-white ${
+                        // href="/developer-hub"
+                        className={`cursor-pointer font-manropeMedium hover:text-primary dark:text-gray-300 dark:hover:text-white ${
                             window.location.pathname === '/developer-hub'
                                 ? 'font-medium'
                                 : ''
                         }`}
+                        onClick={() => {
+                            router.get(route('developer-hub'));
+                        }}
                     >
                         Developer Hub
                     </a>
@@ -163,14 +156,11 @@ export default function Navbar({ user, cartCount = 0 }) {
                     Marketplace
                 </a>
                 <a
-                    href="/products"
-                    className="block px-3 py-2 font-manropeMedium dark:text-gray-300"
-                >
-                    Products
-                </a>
-                <a
-                    href="/developer-hub"
-                    className="block px-3 py-2 font-manropeMedium dark:text-gray-300"
+                    // href="/developer-hub"
+                    className="block cursor-pointer px-3 py-2 font-manropeMedium dark:text-gray-300"
+                    onClick={() => {
+                        router.get(route('developer-hub'));
+                    }}
                 >
                     Developer Hub
                 </a>
