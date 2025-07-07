@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import { router } from '@inertiajs/react';
 import { Badge, Button, Card } from 'flowbite-react';
 
 export default function ProfilePage({ user, roleData }) {
@@ -7,6 +8,10 @@ export default function ProfilePage({ user, roleData }) {
         ...roleData,
         no_hp: roleData?.no_hp || user?.no_hp,
         alamat: roleData?.alamat || user?.alamat,
+    };
+
+    const goToDashboard = () => {
+        router.get(route('admin.dashboard'));
     };
 
     return (
@@ -50,7 +55,7 @@ export default function ProfilePage({ user, roleData }) {
                     <div className="flex-1">
                         <h1 className="font-bold text-2xl">{admin?.name}</h1>
                         <p className="text-blue-100">{admin?.email}</p>
-                        <div className="mt-2 flex justify-center gap-2 sm:justify-start">
+                        <div className="mt-2 flex flex-wrap justify-center gap-2 sm:justify-start">
                             <Button
                                 outline
                                 pill
@@ -65,13 +70,11 @@ export default function ProfilePage({ user, roleData }) {
                                 outline
                                 pill
                                 size="xs"
-                                gradientDuoTone="cyanToBlue"
+                                gradientDuoTone="greenToBlue"
+                                onClick={goToDashboard}
                             >
-                                <Icon
-                                    icon="solar:settings-bold"
-                                    className="mr-1"
-                                />
-                                Pengaturan
+                                <Icon icon="solar:home-bold" className="mr-1" />
+                                Dashboard
                             </Button>
                         </div>
                     </div>
@@ -136,66 +139,6 @@ export default function ProfilePage({ user, roleData }) {
                             />
                             {admin?.alamat || 'Belum menambahkan alamat'}
                         </p>
-                    </div>
-                </div>
-            </Card>
-
-            {/* Keamanan Akun */}
-            <Card>
-                <h2 className="font-semibold mb-4 flex items-center gap-2 text-xl">
-                    <Icon
-                        icon="solar:shield-keyhole-bold"
-                        className="text-green-500"
-                    />
-                    Keamanan Akun
-                </h2>
-
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="font-medium">Email Terverifikasi</p>
-                            <p className="text-sm text-gray-500">
-                                Status verifikasi email
-                            </p>
-                        </div>
-                        <Badge
-                            color={
-                                admin?.email_verified_at ? 'success' : 'failure'
-                            }
-                            icon={() => (
-                                <Icon
-                                    icon={
-                                        admin?.email_verified_at
-                                            ? 'solar:check-circle-bold'
-                                            : 'solar:close-circle-bold'
-                                    }
-                                />
-                            )}
-                        >
-                            {admin?.email_verified_at
-                                ? 'Terverifikasi'
-                                : 'Belum Verifikasi'}
-                        </Badge>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="font-medium">Autentikasi 2 Faktor</p>
-                            <p className="text-sm text-gray-500">
-                                Tingkatkan keamanan akun
-                            </p>
-                        </div>
-                        <Button
-                            size="xs"
-                            gradientDuoTone={
-                                admin?.two_factor_enabled
-                                    ? 'greenToBlue'
-                                    : 'pinkToOrange'
-                            }
-                            pill
-                        >
-                            {admin?.two_factor_enabled ? 'Aktif' : 'Nonaktif'}
-                        </Button>
                     </div>
                 </div>
             </Card>

@@ -56,6 +56,7 @@ class DashboardAdminController extends Controller
     public function userList(Request $request)
     {
         $currentUserId = Auth::id();
+        $user = Auth::user()->load('admin');
 
         $search = $request->input('search');
         $role = $request->input('role');
@@ -89,6 +90,7 @@ class DashboardAdminController extends Controller
                 'sort' => $sort,
             ],
             'editUser' => $editUser,
+            'user' => $user
         ]);
     }
 

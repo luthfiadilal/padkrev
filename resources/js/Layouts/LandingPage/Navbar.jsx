@@ -126,11 +126,16 @@ export default function Navbar() {
                             <h5 className="text-18 font-manropeSemiBold text-secondary">
                                 Register
                             </h5>
-                            <img
-                                src="storage/img/Arrow 1.svg"
-                                alt="arrow"
-                                className="h-[24px] w-[24px] object-contain"
-                            />
+                            {arrow && (
+                                <img
+                                    src={arrow.image_url}
+                                    alt={arrow.name}
+                                    className="h-[24px] w-[24px] object-contain"
+                                    onError={(e) => {
+                                        e.target.src = '/fallback-logo.png';
+                                    }}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>
