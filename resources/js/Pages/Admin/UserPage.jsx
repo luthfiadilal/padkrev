@@ -1,5 +1,6 @@
 import ScrollToTop from '@/Components/shared/ScrollToTop';
 import EditUserModal from '@/Layouts/Admin/EditUserModal';
+import { Icon } from '@iconify/react';
 import { router, usePage } from '@inertiajs/react';
 import { Button, Table } from 'flowbite-react';
 import { useEffect, useState } from 'react';
@@ -129,6 +130,21 @@ export default function UserPage() {
                                             Terapkan Filter
                                         </Button>
                                     </div>
+                                    {/* Tombol Register Seller */}
+                                    <button
+                                        className="hover:bg-secondary/90 mb-6 flex items-center gap-3 rounded-lg bg-secondary px-4 py-4 text-white shadow-md transition-all duration-200 hover:shadow-lg"
+                                        onClick={() =>
+                                            router.visit(
+                                                route('register.seller'),
+                                            )
+                                        }
+                                    >
+                                        <Icon
+                                            icon="solar:add-circle-bold"
+                                            width="20"
+                                        />
+                                        <span>Register Penjual</span>
+                                    </button>
 
                                     {/* Table Section */}
                                     <div className="overflow-x-auto rounded-lg shadow">

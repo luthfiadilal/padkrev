@@ -13,14 +13,11 @@ use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class RegisteredUserController extends Controller
+class RegisterSellerController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Admin/Register');
     }
 
     /**
@@ -34,7 +31,7 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => 'required|in:buyer',
+            'role' => 'required|in:seller',
         ]);
 
         $user = User::create([
@@ -48,6 +45,6 @@ class RegisteredUserController extends Controller
 
         // Auth::login($user);
 
-        return redirect(route('login', absolute: false));
+        return redirect(route('admin.users.index', absolute: false));
     }
 }

@@ -14,9 +14,10 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\Buyer\CartController;
 use App\Http\Controllers\Seller\ProdukController;
 
-use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Seller\DashboardController;
 use App\Http\Controllers\Buyer\ProdukBuyerController;
+use App\Http\Controllers\Auth\RegisterSellerController;
+use App\Http\Controllers\Admin\DashboardAdminController;
 
 Route::get('/', function () {
     if (!Auth::check()) {
@@ -47,6 +48,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/users/{id}', [DashboardAdminController::class, 'destroy'])->name('admin.users.destroy');
     Route::get('/produkpenjual', [DashboardAdminController::class, 'semuaProdukPerKategori'])->name('admin.toko.produk');
     Route::get('/all-transaksi', [DashboardAdminController::class, 'allTransaksi'])->name('admin.transaksi.index');
+    Route::get('/admin/register', [RegisterSellerController::class, 'create'])->name('register.seller');
+    Route::post('/admin/register', [RegisterSellerController::class, 'store'])->name('register.seller.store');
 });
 
 Route::middleware(['auth', 'role:buyer'])->group(function() {
